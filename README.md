@@ -2,8 +2,8 @@
 Minecraft utility mod for 2b2t
 
 ## INFO
-・minecraft version       `1.21.4`
-・java version            `21`
+・minecraft version       `1.21.4`  
+・java version            `21`  
 ・Supported Anti-Cheats   `<ins>Vanilla, ~~Grim, NCP~~` `Grim and NCP will be supported in the future`  
 ・open click gui          `-`  
 
