@@ -1,9 +1,21 @@
-# Fabric Example Mod
+# Nemesis Client
+Minecraft utility mod for 2b2t
 
-## Setup
+## INFO
+・minecraft version       <ins>1.21.4</ins>
+・java version            <ins> >=21 </ins>
+・Supported Anti-Cheats   <ins>Vanilla, ~~Grim, NCP~~</ins> `Grim and NCP will be supported in the future`
 
-For setup instructions please see the [fabric documentation page](https://docs.fabricmc.net/develop/getting-started/setting-up-a-development-environment) that relates to the IDE that you are using.
+## Features
+# Combat    [0]
+# Player    [0]
+# Visual    [0]
+# Movement  [0]
+# Exploit   [0]
+# Client    [0]
 
-## License
+## Commands
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+## To do
+> add click gui
+> fix config manager
