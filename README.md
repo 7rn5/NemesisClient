@@ -8,18 +8,18 @@ Minecraft utility mod for 2b2t
 ・open click gui          `-`  
 
 ## Features
- Combat    [0]  
+ **Combat [0]**  
 - test 1  
 - test 2  
- Player    [0]  
+ **Player [0]**  
 - test 3  
- Visual    [0]  
+ **Visual [0]**  
 - test 4  
- Movement  [0]  
--test 5  
- Exploit   [0]  
--test 6  
- Client    [0]  
+ **Movement [0]**  
+- test 5  
+ **Exploit [0]**  
+- test 6  
+ **Client [0]**  
 -test 7  
 
 ## Commands
