@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "nemesis.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+	    //"SplashTextResourceSupplierMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
