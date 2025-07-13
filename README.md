@@ -9,8 +9,8 @@ Minecraft utility mod for 2b2t
 
 ## Features
  Combat    [0]  
-- test1
-- test2
+- test1  
+- test2  
  Player    [0]  
  Visual    [0]  
  Movement  [0]  
