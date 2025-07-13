@@ -8,14 +8,14 @@ Minecraft utility mod for 2b2t
 ・open click gui          <ins> - </ins>  
 
 ## Features
-> Combat    [0]  
+ Combat    [0]  
   test1  
   test2  
-> Player    [0]  
-> Visual    [0]  
-> Movement  [0]  
-> Exploit   [0]  
-> Client    [0]  
+ Player    [0]  
+ Visual    [0]  
+ Movement  [0]  
+ Exploit   [0]  
+ Client    [0]  
 
 ## Commands
 
