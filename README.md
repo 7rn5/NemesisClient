@@ -25,7 +25,7 @@ Minecraft utility mod for 2b2t
 - test 6  
 
 **Client [0]**  
--test 7  
+- test 7  
 
 ## Commands
 
