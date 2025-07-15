@@ -3,6 +3,7 @@ package nemesis;
 import nemesis.manager.misc.*;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,10 @@ public class NemesisClient implements ModInitializer {
 	    LOGGER.info("Welcome to NemesisClient");
 	    
 	    //nemesis managers
+	}
+	
+	public void onInitializeClient() {
 	    configManager = new ConfigManager();
+	    configManager.load();
 	}
 }
