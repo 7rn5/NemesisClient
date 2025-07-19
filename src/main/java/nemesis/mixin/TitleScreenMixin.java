@@ -39,7 +39,7 @@ public abstract class TitleScreenMixin extends Screen {
 
         String text = String.format("%s v%s (%s)", NemesisClient.CLIENT_NAME, NemesisClient.CLIENT_VERSION, NemesisClient.CLIENT_STATUS);
         int x = 2;
-        int y = height - (client.textRenderer.fontHeight * 2) - 3;
+        int y = height - (client.textRenderer.fontHeight * 2) - 2;
         int color = 0xFFFFFF | alpha;
 
         context.drawTextWithShadow(client.textRenderer, text, x, y, color);
@@ -50,7 +50,7 @@ public abstract class TitleScreenMixin extends Screen {
                           mouseY >= y && mouseY <= y + textHeight;
 
         if (hovered) {
-            context.fill(x, y + textHeight + 1, x + textWidth, y + textHeight + 2, 0xFFFFFFFF);
+            context.fill(x, y + textHeight, x + textWidth, y + textHeight - 1, 0xFFFFFFFF);
         }
     }
     @Inject(method = "mouseClicked", at = @At("HEAD"), cancellable = true)
@@ -58,7 +58,7 @@ public abstract class TitleScreenMixin extends Screen {
     String text = String.format("%s v%s (%s)", NemesisClient.CLIENT_NAME, NemesisClient.CLIENT_VERSION, NemesisClient.CLIENT_STATUS);
     
         int x = 2;
-        int y = height - (client.textRenderer.fontHeight * 2) - 3;
+        int y = height - (client.textRenderer.fontHeight * 2) - 2;
         int textWidth = client.textRenderer.getWidth(text);
         int textHeight = client.textRenderer.fontHeight;
 
