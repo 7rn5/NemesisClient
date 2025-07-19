@@ -3,7 +3,8 @@
 	"package": "nemesis.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-	    //"SplashTextResourceSupplierMixin"
+	    "SplashTextResourceSupplierMixin",
+	    "TitleScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
