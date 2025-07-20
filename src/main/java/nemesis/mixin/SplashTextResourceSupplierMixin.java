@@ -32,7 +32,12 @@ public abstract class SplashTextResourceSupplierMixin {
               "Welcome to Nemesis",
               "Best Client",
               "Nemesis for 2b2t",
-              "2b2t.org"
+              "2b2t.org",
+              "Meow",
+              "PRIVATE CLIENT",
+              "Who is 7rn5",
+              "WE ARE CETD",
+              "Cetd Family"
         );
     }
 }
