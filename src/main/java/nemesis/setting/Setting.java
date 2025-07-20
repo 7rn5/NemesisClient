@@ -1,23 +1,13 @@
 package nemesis.setting;
 
-public abstract class Setting<T> {
-    protected String name;
-    protected T value;
-
-    public Setting(String name, T defaultValue) {
+public abstract class Setting {
+    private final String name;
+    
+    public final String getName() {
+         return this.name;
+    }
+    
+    public Setting(String name) {
         this.name = name;
-        this.value = defaultValue;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public T getValue() {
-        return value;
-    }
-
-    public void setValue(T value) {
-        this.value = value;
     }
 }
