@@ -1,6 +1,6 @@
 plugins {
   id 'java'
-	id 'fabric-loom' version "${loom_version}"
+	id 'fabric-loom' version '1.11-SNAPSHOT'  //dont change loom version
 	id 'maven-publish'
 }
 
@@ -12,11 +12,7 @@ base {
 }
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+  mavenCentral()
 }
 
 loom {
@@ -36,6 +32,9 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	//implementation 'com.google.guava:guava:33.3.1-jre'
+	//include(implementation("org.yaml:snakeyaml:1.28"))
 }
 
 processResources {
