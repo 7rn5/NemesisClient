@@ -1,70 +1,45 @@
 package nemesis.util.renderer;
 
-import java.awt.*;
+import java.awt.Color;
+import nemesis.util.MathUtil;
+import net.minecraft.util.math.MathHelper;
+import org.lwjgl.opengl.GL11;
 
 public class ColorUtil {
-
-    // RGBA → int（不透明）
-    public static int toRGBA(int r, int g, int b) {
-        return toRGBA(r, g, b, 255);
+    public static Color newAlpha(Color color, int alpha) {
+        return new Color(color.getRed(), color.getGreen(), color.getBlue(), alpha);
     }
 
-    // RGBA → int（指定アルファ）
-    public static int toRGBA(int r, int g, int b, int a) {
-        return (a & 0xFF) << 24 |
-               (r & 0xFF) << 16 |
-               (g & 0xFF) << 8 |
-               (b & 0xFF);
+    public static void glColor(Color color) {
+        GL11.glColor4f(((float) color.getRed() / 255.0f), ((float) color.getGreen() / 255.0f), ((float) color.getBlue() / 255.0f), ((float)color.getAlpha() / 255.0f));
     }
 
-    // float → int RGBA変換（0.0f ~ 1.0f）
-    public static int toRGBA(float r, float g, float b, float a) {
-        return toRGBA((int)(r * 255), (int)(g * 255), (int)(b * 255), (int)(a * 255));
+    public static void reset() {
+        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    // java.awt.Color → int
-    public static int toRGBA(Color color) {
-        return toRGBA(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+    public static Color interpolate(float value, Color start, Color end) {
+        float sr = (float) start.getRed() / 255.0f;
+        float sg = (float) start.getGreen() / 255.0f;
+        float sb = (float) start.getBlue() / 255.0f;
+        float sa = (float) start.getAlpha() / 255.0f;
+        float er = (float) end.getRed() / 255.0f;
+        float eg = (float) end.getGreen() / 255.0f;
+        float eb = (float) end.getBlue() / 255.0f;
+        float ea = (float) end.getAlpha() / 255.0f;
+        float r = sr * value + er * (1.0f - value);
+        float g = sg * value + eg * (1.0f - value);
+        float b = sb * value + eb * (1.0f - value);
+        float a = sa * value + ea * (1.0f - value);
+        return new Color(r, g, b, a);
     }
 
-    // Rainbowカラー（Hue回転）
-    public static int rainbow(float speed, float saturation, float brightness, int offset) {
-        float hue = ((System.currentTimeMillis() + offset) % (int)speed) / speed;
-        return Color.HSBtoRGB(hue, saturation, brightness);
-    }
+    public static Color interpolate(float value, Color start, Color middle, Color end) {
+        if (value < 0.5f) {
+            return ColorUtil.interpolate((float)MathHelper.clamp(MathUtil.normalize(value, 0.0, 0.5), 0.0, 1.0), middle, start);
+        }
 
-    // グラデーション（2色間補間）
-    public static int fadeBetween(int color1, int color2, float progress) {
-        float inverse = 1.0f - progress;
-
-        int r = (int)((getRed(color1) * inverse) + (getRed(color2) * progress));
-        int g = (int)((getGreen(color1) * inverse) + (getGreen(color2) * progress));
-        int b = (int)((getBlue(color1) * inverse) + (getBlue(color2) * progress));
-        int a = (int)((getAlpha(color1) * inverse) + (getAlpha(color2) * progress));
-
-        return toRGBA(r, g, b, a);
-    }
-
-    // 明るさ調整
-    public static int adjustBrightness(int color, float factor) {
-        int r = clamp((int)(getRed(color) * factor), 0, 255);
-        int g = clamp((int)(getGreen(color) * factor), 0, 255);
-        int b = clamp((int)(getBlue(color) * factor), 0, 255);
-        int a = getAlpha(color);
-        return toRGBA(r, g, b, a);
-    }
-
-    // 各成分の取得
-    public static int getRed(int color)   { return (color >> 16) & 0xFF; }
-    public static int getGreen(int color) { return (color >> 8) & 0xFF; }
-    public static int getBlue(int color)  { return color & 0xFF; }
-    public static int getAlpha(int color) { return (color >> 24) & 0xFF; }
-
-    // 安全な範囲に制限
-    public static int clamp(int val, int min, int max) {
-        return Math.max(min, Math.min(max, val));
+        return ColorUtil.interpolate((float)MathHelper.clamp(MathUtil.normalize(value, 0.5, 1.0), 0.0, 1.0), end, middle);
     }
 }
 
-//一応chat gptに作らせたやつだからうごくかは知らん
-//にがーしね
