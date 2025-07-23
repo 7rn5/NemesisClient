@@ -1,7 +1,10 @@
 package nemesis.setting;
 
+import java.util.function.BooleanSupplier;
+
 public abstract class Setting {
-    private final String name;
+    public final String name;
+    public final BooleanSupplier visible;
     
     public final String getName() {
          return this.name;
@@ -9,5 +12,6 @@ public abstract class Setting {
     
     public Setting(String name) {
         this.name = name;
+        this.visible = null;
     }
 }
