@@ -8,4 +8,8 @@ import java.awt.Color;
 
 public class ColorManagement extends Module {
     public final ColorSetting defaultColor = new ColorSetting("DefaultColor", new Color(255, 0, 0));
+    
+    public ColorManagement() {
+        super("ColorManagement", Category.Client, "ColorManager");
+    }
 }
