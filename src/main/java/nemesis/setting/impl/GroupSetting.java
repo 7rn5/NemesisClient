@@ -9,13 +9,13 @@ public class GroupSetting extends Setting<Boolean> {
         super(name); 
     }
 
-    public GroupSetting(String name, Visibility visibility) {
-        super(name);
-    }
+    //public GroupSetting(String name, Visibility visibility) {
+    //    super(name);
+    //}
 
-    public void toggle() {
-        open = !open;
-    }
+    //public void toggle() {
+    //    open = !open;
+    //}
 
     @Override
     public Boolean get() {
@@ -27,10 +27,10 @@ public class GroupSetting extends Setting<Boolean> {
         open = value;
     }
 
-    public static class Visibility extends Setting.VisibilityCondition {
+    public static class GroupIs extends Setting.VisibilityCondition {
         private final GroupSetting group;
 
-        public Visibility(GroupSetting group) {
+        public GroupIs(GroupSetting group) {
             //super(() -> true); 
             this.group = group;
         }
