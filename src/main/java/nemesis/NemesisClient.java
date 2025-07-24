@@ -22,7 +22,7 @@ public class NemesisClient implements ModInitializer {
 	public static final String CLIENT_STATUS = "Beta"; //Beta or Release
   public static final String CLIENT_VERSION = "0.0.1";
   public static final String CLIENT_NAME = "NemesisClient";
-  public static final String LOG_PREFIX = "[" + CLIENT_NAME + "]";
+  public static final String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
 	
 	public static MinecraftClient mc;
 	
@@ -39,13 +39,13 @@ public class NemesisClient implements ModInitializer {
 	    
 	    //Nemesis
 	    LOGGER.info(LOG_PREFIX + "");
-	    LOGGER.info(LOG_PREFIX + " ##    ##  ########  ##     ##  ########   ######   ####   ######  ");
-	    LOGGER.info(LOG_PREFIX + " ###   ##  ##        ###   ###  ##        ##    ##   ##   ##    ## ");
-	    LOGGER.info(LOG_PREFIX + " ####  ##  ##        #### ####  ##        ##         ##   ##       ");
-	    LOGGER.info(LOG_PREFIX + " ## ## ##  ######    ## ### ##  ######     ######    ##    ######  ");
-	    LOGGER.info(LOG_PREFIX + " ##  ####  ##        ##     ##  ##              ##   ##         ## ");
-	    LOGGER.info(LOG_PREFIX + " ##   ###  ##        ##     ##  ##        ##    ##   ##   ##    ## ");
-	    LOGGER.info(LOG_PREFIX + " ##    ##  ########  ##     ##  ########   ######   ####   ######  ");
+	    LOGGER.info(LOG_PREFIX + "##    ##  ########  ##     ##  ########   ######   ####   ######  ");
+	    LOGGER.info(LOG_PREFIX + "###   ##  ##        ###   ###  ##        ##    ##   ##   ##    ## ");
+	    LOGGER.info(LOG_PREFIX + "####  ##  ##        #### ####  ##        ##         ##   ##       ");
+	    LOGGER.info(LOG_PREFIX + "## ## ##  ######    ## ### ##  ######     ######    ##    ######  ");
+	    LOGGER.info(LOG_PREFIX + "##  ####  ##        ##     ##  ##              ##   ##         ## ");
+	    LOGGER.info(LOG_PREFIX + "##   ###  ##        ##     ##  ##        ##    ##   ##   ##    ## ");
+	    LOGGER.info(LOG_PREFIX + "##    ##  ########  ##     ##  ########   ######   ####   ######  ");
 	    LOGGER.info(LOG_PREFIX + "");
 	    LOGGER.info(LOG_PREFIX + "    " + CLIENT_NAME + " v" +CLIENT_VERSION + " (" + CLIENT_STATUS + ")");
 	}
