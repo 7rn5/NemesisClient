@@ -9,6 +9,7 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Formatting;
+import static nemesis.NemesisClient.mc;
 
 import java.awt.Color;
 
