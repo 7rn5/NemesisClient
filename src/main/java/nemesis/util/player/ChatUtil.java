@@ -2,7 +2,7 @@ package nemesis.util.player;
 
 import nemesis.NemesisClient;
 import nemesis.mixin.imixin.IChatHud;
-import net.minecraft.client.MinecraftClient;
+//import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.Text;
 import net.minecraft.client.gui.hud.InGameHud;
 //import net.minecraft.client.gui.hud.ChatHud;
@@ -13,8 +13,8 @@ import net.minecraft.util.Formatting;
 import java.awt.Color;
 
 public class ChatUtil {
-    private static final MinecraftClient mc = MinecraftClient.getInstance();
-    public static final String CLIENT_PREFIX = "§7[ §FNemesis §7] §r";
+    //private static final MinecraftClient mc = MinecraftClient.getInstance();
+    public static final String CLIENT_PREFIX = "§7[§FNemesis§7] §r";
     
     public static void clientSendMessage(String message) {clientSendMessage(message, 0);}
 
