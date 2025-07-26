@@ -1,8 +1,10 @@
 package nemesis.impl.module;
 
 import nemesis.setting.Setting;
+import nemesis.setting.impl.BindSetting;
 //import nemesis.impl.module.Modules;
-//import nemesis.setting.impl.BindSetting;
+//import net.minecraft.client.util.InputUtil;
+//import org.lwjgl.glfw.GLFW;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ public abstract class Module {
     private final String name;
     private final Category category;
     private final String description;
+    //public final BindSetting bind = new BindSetting("Keybind", new Bind(-1));
+    public final BindSetting bind = new BindSetting("Keybind", -1);
 
     private boolean enabled = false;
     private final List<Setting<?>> settings = new ArrayList<>();
@@ -64,6 +68,14 @@ public abstract class Module {
 
     public void onEnable() {}
     public void onDisable() {}
+    
+    public Integer getBind() {
+        return this.bind.get();
+    }
+    
+    public void setBind(int key) {
+        this.bind.set(key);
+    }
 
     public List<Setting<?>> getSettings() {
         return settings;
