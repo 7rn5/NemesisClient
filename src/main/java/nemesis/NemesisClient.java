@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory;
 public class NemesisClient implements ModInitializer {
 	public static final String CLIENT_ID = "nemesis";
 	public static final String CLIENT_STATUS = "Beta"; //Beta or Release
-  public static final String CLIENT_VERSION = "0.0.1";
+  public static final String CLIENT_VERSION = "0.0.2";
   public static final String CLIENT_NAME = "NemesisClient";
   public static final String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
 	
