@@ -9,6 +9,7 @@
 package nemesis;
 
 import nemesis.manager.misc.*;
+import nemesis.impl.module.ModuleManager;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.api.ClientModInitializer;
@@ -27,7 +28,7 @@ public class NemesisClient implements ModInitializer {
 	
 	//managers
 	public static ConfigManager configManager;
-	//public static ModuleManager moduleManager;
+	public static ModuleManager moduleManager;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(CLIENT_NAME);
 
@@ -51,10 +52,11 @@ public class NemesisClient implements ModInitializer {
 	
 	public void onInitializeClient() {
 	    mc = MinecraftClient.getInstance();
+	    LOGGER.info(LOG_PREFIX + "Config loading...");
 	    configManager.load();
 	    
 	    //Register Manager
-	    //moduleManager = new ModuleManager();
+	    moduleManager = new ModuleManager();
 	    configManager = new ConfigManager();
 	}
 }
