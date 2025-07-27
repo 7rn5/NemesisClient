@@ -52,7 +52,6 @@ public class NemesisClient implements ModInitializer {
 	
 	public void onInitializeClient() {
 	    mc = MinecraftClient.getInstance();
-	    LOGGER.info(LOG_PREFIX + "Config loading...");
 	    configManager.load();
 	    
 	    //Register Manager
