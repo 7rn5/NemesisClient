@@ -52,10 +52,11 @@ public class NemesisClient implements ModInitializer {
 	
 	public void onInitializeClient() {
 	    mc = MinecraftClient.getInstance();
-	    configManager.load();
 	    
 	    //Register Manager
 	    moduleManager = new ModuleManager();
 	    configManager = new ConfigManager();
+	    configManager.load();
+	    ConfigManager.init();
 	}
 }
