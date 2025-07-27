@@ -33,7 +33,7 @@ public class ConfigManager {
     }
 
     public void save() {
-        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...")
+        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...");
         if (!NEMESIS_PATH.toFile().exists()) NEMESIS_PATH.toFile().mkdirs();
         for (JsonUtil jsonable : jsonables) {
             try {
@@ -46,7 +46,7 @@ public class ConfigManager {
     }
     public static void init() {
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
-            NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...")
+            NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...");
             NemesisClient.configManager.save();
             NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Config save Success!");
         });
