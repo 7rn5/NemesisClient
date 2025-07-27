@@ -4,6 +4,7 @@ import nemesis.NemesisClient;
 import com.google.gson.*;
 import nemesis.util.file.JsonUtil;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,7 +19,7 @@ public class ConfigManager {
             .create();
     
     public void load() {
-        NemesisClient.LOGGER.info(LOG_PREFIX + "ConfigLoading...");
+        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "ConfigLoading...");
         if (!NEMESIS_PATH.toFile().exists()) NEMESIS_PATH.toFile().mkdirs();
         for (JsonUtil jsonable : jsonables) {
             try {
@@ -28,11 +29,11 @@ public class ConfigManager {
                 e.printStackTrace();
             }
         }
-        NemesisClient.LOGGER.info(LOG_PREFIX + "Config load Success!");
+        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Config load Success!");
     }
 
     public void save() {
-        NemesisClient.LOGGER.info(LOG_PREFIX + "Saving config...")
+        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...")
         if (!NEMESIS_PATH.toFile().exists()) NEMESIS_PATH.toFile().mkdirs();
         for (JsonUtil jsonable : jsonables) {
             try {
@@ -41,6 +42,13 @@ public class ConfigManager {
             } catch (Throwable e) {
             }
         }
-        NemesisClient.LOGGER.info(LOG_PREFIX + "Config save Success!");
+        NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Config save Success!");
+    }
+    public static void init() {
+        ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
+            NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Saving config...")
+            NemesisClient.configManager.save();
+            NemesisClient.LOGGER.info(NemesisClient.LOG_PREFIX + "Config save Success!");
+        });
     }
 }
