@@ -18,6 +18,7 @@ public class ConfigManager {
             .create();
     
     public void load() {
+        NemesisClient.LOGGER.info(LOG_PREFIX + "ConfigLoading...");
         if (!NEMESIS_PATH.toFile().exists()) NEMESIS_PATH.toFile().mkdirs();
         for (JsonUtil jsonable : jsonables) {
             try {
@@ -27,9 +28,11 @@ public class ConfigManager {
                 e.printStackTrace();
             }
         }
+        NemesisClient.LOGGER.info(LOG_PREFIX + "Config load Success!");
     }
 
     public void save() {
+        NemesisClient.LOGGER.info(LOG_PREFIX + "Saving config...")
         if (!NEMESIS_PATH.toFile().exists()) NEMESIS_PATH.toFile().mkdirs();
         for (JsonUtil jsonable : jsonables) {
             try {
@@ -38,5 +41,6 @@ public class ConfigManager {
             } catch (Throwable e) {
             }
         }
+        NemesisClient.LOGGER.info(LOG_PREFIX + "Config save Success!");
     }
 }
