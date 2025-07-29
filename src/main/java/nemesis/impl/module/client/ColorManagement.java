@@ -1,4 +1,4 @@
-package nemesis.impl.module.client;
+/*package nemesis.impl.module.client;
 
 import nemesis.impl.module.Module;
 import nemesis.setting.Setting;
@@ -12,23 +12,20 @@ public class ColorManagement extends Module {
     
     public final ColorSetting friendColor = new ColorSetting(
         "FriendColor",
-        new Color(255, 0, 0)/*,
-        new GroupSetting(general)*/
+        new Color(255, 0, 0)
     );
     
     public final ColorSetting enemyColor = new ColorSetting(
         "EnemyColor",
-        new Color(255, 0, 0)/*,
-        new GroupSetting(general)*/
+        new Color(255, 0, 0)
     );
     
     public final ColorSetting defaultColor = new ColorSetting(
         "DefaultColor",
-        new Color(255, 0, 0)/*,
-        new GroupSetting(general)*/
+        new Color(255, 0, 0)
     );
     
     public ColorManagement() {
         super("ColorManagement", Category.Client, "ColorManager");
     }
-}
+}*/
