@@ -1,7 +1,7 @@
 package nemesis.impl.module;
 
 import nemesis.impl.module.Module;
-import nemesis.impl.module.client.*;
+//import nemesis.impl.module.client.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,8 @@ public class ModuleManager {
         //Exploit
         
         //Client
-          add(new ColorManagement());
-          add(new Ui());
+          //add(new ColorManagement());
+          //add(new Ui());
     }
 
     public void add(Module module) {
