@@ -8,27 +8,29 @@
 
 package nemesis;
 
-import nemesis.manager.*;
+//import nemesis.manager.*;
+import nemesis.manager.config.*;
 import nemesis.impl.module.ModuleManager;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NemesisClient implements ModInitializer {
-	public static final String CLIENT_ID = "nemesis";
-	public static final String CLIENT_STATUS = "Beta"; //Beta or Release
-  public static final String CLIENT_VERSION = "0.0.2";
-  public static final String CLIENT_NAME = "NemesisClient";
-  public static final String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
+	public static String CLIENT_ID = "nemesis";
+	public static String CLIENT_STATUS = "Beta"; //Beta or Release
+  public static String CLIENT_VERSION = "0.0.2";
+  public static String CLIENT_NAME = "NemesisClient";
+  public static String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
 	
 	public static MinecraftClient mc;
 	
 	//managers
-	public static ConfigManager configManager;
-	public static ModuleManager moduleManager;
+	    public static ConfigManager configManager;
+	    public static ModuleManager moduleManager;
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(CLIENT_NAME);
 
@@ -54,9 +56,20 @@ public class NemesisClient implements ModInitializer {
 	    mc = MinecraftClient.getInstance();
 	    
 	    //Register Manager
-	    moduleManager = new ModuleManager();
-	    configManager = new ConfigManager();
-	    configManager.load();
-	    ConfigManager.init();
+	        moduleManager = new ModuleManager();
+	        configManager = new ConfigManager();
+	   
+	   //config manager
+	   configManager.loadModules();
+	   configManager.loadFriends();
+	   
+	   if (configManager.loadName() == null)
+         configManager.saveName(CLIENT_ID);
+     else
+         CLIENT_ID = configManager.loadName();
+    
+     ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
+          configManager.saveModules();
+     });
 	}
 }
