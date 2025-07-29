@@ -1,4 +1,4 @@
-package nemesis.impl.module.client;
+/*package nemesis.impl.module.client;
 
 import nemesis.NemesisClient;
 import nemesis.impl.module.Module;
@@ -9,4 +9,4 @@ public class Ui extends Module {
         super("UI", Category.Client, "Management to your click gui");
         setBind(GLFW.GLFW_KEY_RIGHT_SHIFT);
     }
-}
+}*/
