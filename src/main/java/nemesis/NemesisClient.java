@@ -8,7 +8,7 @@
 
 package nemesis;
 
-import nemesis.manager.misc.*;
+import nemesis.manager.*;
 import nemesis.impl.module.ModuleManager;
 
 import net.fabricmc.api.ModInitializer;
