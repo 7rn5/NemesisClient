@@ -103,23 +103,20 @@ package nemesis.impl.module;
 import nemesis.settings.Setting;
 import nemesis.settings.impl.BindSetting;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 public abstract class Module {
     private final String name, description;
     private Category category;
-    private boolean alwaysEnable;
     private boolean enabled = false;
     private final BindSetting Bind;
-    
+    private final List<Module> modules = new ArrayList<>();
     private final List<Setting<?>> settings = new ArrayList<>();
     
-    public Module(String name, String description, Category category, boolean alwaysEnable) {
+    public Module(String name, String description, Category category) {
         this.name = name;
         this.description = description;
         this.category = category;
-        this.alwaysEnable = alwaysEnable;
         
         this.Bind = new BindSetting("bind", BindSetting.KEY_NONE);
         this.settings.add(Bind);
@@ -127,6 +124,10 @@ public abstract class Module {
     
     public String getName() {
         return name;
+    }
+    
+    public String getDescription() {
+        return description;
     }
     
     public Category getCategory() {
@@ -148,8 +149,21 @@ public abstract class Module {
         return !enabled;
     }
     
-    private void onEnabled() {}
-    private void onDisabled() {}
+    public void onEnabled() {}
+    public void onDisabled() {}
+    public void onToggle() {}
+    
+    public void enable() {
+        setEnabled(true);
+        this.onToggle();
+        this.onEnabled();
+    }
+
+    public void disable() {
+        setEnabled(false);
+        this.onToggle();
+        this.onDisabled();
+    }
     
     public void toggle() {
         setEnabled(!enabled);
@@ -159,12 +173,29 @@ public abstract class Module {
         return settings;
     }
     
+    public <T extends Setting<?>> T addSetting(T setting) {
+        settings.add(setting);
+        return setting;
+    }
     public enum Category {
-        Combat,
-        Player,
-        Visual,
-        Movement,
-        Exploit,
-        Client
+        Combat("Combat"),
+        Player("Player"),
+        Visual("Visual"),
+        Movement("Movement"),
+        Exploit("Exploit"),
+        Client("Client");
+        
+        private final String name;
+        Category(String name) {
+            this.name = name;
+        }
+        
+        public String getName() {
+            return this.name;
+        }
+        
+        public static List<Category> getAll() {
+            return Arrays.asList(values());
+        }
     }
 }
