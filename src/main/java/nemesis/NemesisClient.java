@@ -12,6 +12,7 @@ import nemesis.manager.*;
 import nemesis.manager.config.*;
 import nemesis.impl.module.ModuleManager;
 import nemesis.impl.gui.screen.ClickGuiScreen;
+import nemesis.impl.command.*;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.api.ClientModInitializer;
@@ -20,7 +21,7 @@ import net.minecraft.client.MinecraftClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NemesisClient implements ModInitializer {
+public class NemesisClient implements ModInitializer, ClientModInitializer {
 	public static String CLIENT_ID = "nemesis";
 	public static String CLIENT_STATUS = "Beta"; //Beta or Release
   public static String CLIENT_VERSION = "0.0.3";
@@ -34,11 +35,11 @@ public class NemesisClient implements ModInitializer {
 	    public static ModuleManager moduleManager;
 	    public static EventManager eventManager;
 	//gui 
-	    public static ClickGuiScreen clickGuiScreen;
+	    public static ClickGuiScreen clickGuiScreen = new ClickGuiScreen();
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(CLIENT_NAME);
 
-	@Override
+  @Override
 	public void onInitialize() {
 	    //log
 	    LOGGER.info(LOG_PREFIX + "Welcome to NemesisClient");
@@ -56,6 +57,7 @@ public class NemesisClient implements ModInitializer {
 	    LOGGER.info(LOG_PREFIX + "    " + CLIENT_NAME + " v" +CLIENT_VERSION + " (" + CLIENT_STATUS + ")");
 	}
 	
+	@Override
 	public void onInitializeClient() {
 	    mc = MinecraftClient.getInstance();
 	    
@@ -64,12 +66,12 @@ public class NemesisClient implements ModInitializer {
 	        configManager = new ConfigManager();
 	        eventManager = new EventManager();
 	   
-	   //gui 
-	        clickGuiScreen = new ClickGuiScreen();
-	   
 	   //config manager
 	   configManager.loadModules();
 	   configManager.loadFriends();
+	   
+	   //command
+	   OpenGui.register();
 	   
 	   if (configManager.loadName() == null)
          configManager.saveName(CLIENT_ID);
