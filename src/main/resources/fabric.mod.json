@@ -11,11 +11,10 @@
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/nemesis/icon.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
-		"main": [
-			"nemesis.NemesisClient"
-		]
+	  "client": ["nemesis.NemesisClient"],
+	  "main": ["nemesis.NemesisClient"]
 	},
 	"mixins": [
 		"nemesis.mixins.json"
