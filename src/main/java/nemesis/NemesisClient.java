@@ -9,7 +9,6 @@
 package nemesis;
 
 import nemesis.manager.*;
-import nemesis.manager.config.*;
 import nemesis.impl.module.ModuleManager;
 import nemesis.impl.gui.screen.ClickGuiScreen;
 import nemesis.impl.command.*;
@@ -67,19 +66,9 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
 	        eventManager = new EventManager();
 	   
 	   //config manager
-	   configManager.loadModules();
-	   configManager.loadFriends();
+	        configManager.loadConfig();
 	   
 	   //command
 	   OpenGui.register();
-	   
-	   if (configManager.loadName() == null)
-         configManager.saveName(CLIENT_ID);
-     else
-         CLIENT_ID = configManager.loadName();
-    
-     ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-          configManager.saveModules();
-     });
 	}
 }
