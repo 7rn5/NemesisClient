@@ -1,7 +1,7 @@
 package nemesis.settings.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonObject;
 import nemesis.settings.Setting;
 
 import java.awt.*;
@@ -31,25 +31,29 @@ public class ColorSetting extends Setting<Color> {
         return Alpha ? value.getAlpha() : 255;
     }
     
-    @Override
-    public void fromJson(JsonElement json) {
-        if (json.isJsonObject()) {
-            JsonObject obj = json.getAsJsonObject();
-            int r = obj.has("r") ? obj.get("r").getAsInt() : 255;
-            int g = obj.has("g") ? obj.get("g").getAsInt() : 255;
-            int b = obj.has("b") ? obj.get("b").getAsInt() : 255;
-            int a = Alpha && obj.has("a") ? obj.get("a").getAsInt() : 255;
-            this.value = new Color(r, g, b, a);
-        }
+    public void setValue(int r, int g, int b, int a) {
+        this.value = new Color(r, g, b, Alpha ? a : 255);
     }
+    
+    //@Override
+    //public void fromJson(JsonElement json) {
+    //    if (json.isJsonObject()) {
+    //        JsonObject obj = json.getAsJsonObject();
+    //        int r = obj.has("r") ? obj.get("r").getAsInt() : 255;
+    //        int g = obj.has("g") ? obj.get("g").getAsInt() : 255;
+    //        int b = obj.has("b") ? obj.get("b").getAsInt() : 255;
+    //        int a = Alpha && obj.has("a") ? obj.get("a").getAsInt() : 255;
+    //        this.value = new Color(r, g, b, a);
+    //    }
+    //}
 
-    @Override
-    public JsonElement toJson() {
-        JsonObject obj = new JsonObject();
-        obj.addProperty("r", value.getRed());
-        obj.addProperty("g", value.getGreen());
-        obj.addProperty("b", value.getBlue());
-        if (Alpha) obj.addProperty("a", value.getAlpha());
-        return obj;
-    }
+    //@Override
+    //public JsonElement toJson() {
+    //    JsonObject obj = new JsonObject();
+    //    obj.addProperty("r", value.getRed());
+    //    obj.addProperty("g", value.getGreen());
+    //    obj.addProperty("b", value.getBlue());
+    //    if (Alpha) obj.addProperty("a", value.getAlpha());
+    //    return obj;
+    //}
 }
