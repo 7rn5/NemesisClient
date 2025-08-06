@@ -1,8 +1,5 @@
 package nemesis.impl.module.client;
 
-import nemesis.event.EventPriority;
-import nemesis.event.SubscribeEvent;
-import nemesis.event.impl.Render2DEvent;
 import nemesis.impl.module.Module;
 import nemesis.settings.impl.BoolSetting;
 import nemesis.settings.impl.ColorSetting;
@@ -11,96 +8,10 @@ import nemesis.settings.impl.DoubleSetting;
 import java.awt.*;
 
 public class ColorManagement extends Module {
-    public final ColorSetting globalColor = addSetting(new ColorSetting("global", new Color(255, 0, 0, 170), true));
-
-    public final DoubleSetting globalSaturation = addSetting(new DoubleSetting("saturation", 0.33, 0.0, 1.0));
-    public final DoubleSetting globalDarskness = addSetting(new DoubleSetting("darkness", 0.00, 0.0, 1.0));
-    public final DoubleSetting alpha = addSetting(new DoubleSetting("alpha", 0.4, 0.0, 1.0));
-
-    public final BoolSetting rainbowEnabled = addSetting(new BoolSetting("rainbow", false));
-    public final DoubleSetting rainbowSpeed = addSetting(new DoubleSetting("rainbow speed", 0.4, 0.01, 5.0));
-
-    private int phase = 0;
 
     public ColorManagement() {
         super("ColorManagement", "management to your color", Category.Client);
         if (!this.isEnabled())
             this.toggle();
-    }
-
-    @Override
-    public void onDisabled() {
-        if (!this.isEnabled())
-            this.toggle();
-    }
-
-    private int getAlpha255() {
-        return (int) (Math.max(0.0, Math.min(1.0, alpha.get())) * 255);
-    }
-
-    public Color applySaturation(Color base, double saturationFactor) {
-        float[] hsb = Color.RGBtoHSB(base.getRed(), base.getGreen(), base.getBlue(), null);
-        float saturation = (float) (hsb[1] * saturationFactor);
-        saturation = Math.max(0f, Math.min(1f, saturation));
-        return Color.getHSBColor(hsb[0], saturation, hsb[2]);
-    }
-
-    public Color applyDarkness(Color base, double darknessFactor) {
-        float factor = (float) (1.0 - darknessFactor);
-        int r = Math.max(0, (int) (base.getRed() * factor));
-        int g = Math.max(0, (int) (base.getGreen() * factor));
-        int b = Math.max(0, (int) (base.getBlue() * factor));
-        int a = base.getAlpha();
-        return new Color(r, g, b, a);
-    }
-
-    public Color getStyledColor(Color base, double saturation, double darkness) {
-        Color adjusted = applyDarkness(applySaturation(base, saturation), darkness);
-        return new Color(adjusted.getRed(), adjusted.getGreen(), adjusted.getBlue(), getAlpha255());
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    private void onRender(Render2DEvent ev){
-        updateGlobalColor();
-    }
-
-    public void updateGlobalColor() {
-        if (!rainbowEnabled.get()) return;
-
-        Color current = globalColor.get();
-        int r = current.getRed();
-        int g = current.getGreen();
-        int b = current.getBlue();
-        int a = getAlpha255();
-
-        int step = (int) Math.max(1, rainbowSpeed.get() * 4);
-
-        switch (phase) {
-            case 0: g += step; if (g >= 255) { g = 255; phase = 1; } break;
-            case 1: r -= step; if (r <= 0)   { r = 0;   phase = 2; } break;
-            case 2: b += step; if (b >= 255) { b = 255; phase = 3; } break;
-            case 3: g -= step; if (g <= 0)   { g = 0;   phase = 4; } break;
-            case 4: r += step; if (r >= 255) { r = 255; phase = 5; } break;
-            case 5: b -= step; if (b <= 0)   { b = 0;   phase = 0; } break;
-        }
-
-        r = clamp(r); g = clamp(g); b = clamp(b);
-        globalColor.set(new Color(r, g, b, a));
-    }
-
-    private int clamp(int val) {
-        return Math.max(0, Math.min(255, val));
-    }
-
-    public Color getEffectiveGlobalColor() {
-        return globalColor.get();
-    }
-
-    public Color getStyledGlobalColor() {
-        return getStyledColor(getEffectiveGlobalColor(), globalSaturation.get(), globalDarskness.get());
-    }
-
-    public Color getStyledSecondColor() {
-        return applyDarkness(getStyledGlobalColor(), 0.5);
     }
 }
