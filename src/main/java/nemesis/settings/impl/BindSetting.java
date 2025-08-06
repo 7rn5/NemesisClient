@@ -1,7 +1,7 @@
 package nemesis.settings.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 import org.lwjgl.glfw.GLFW;
 
@@ -47,17 +47,17 @@ public class BindSetting extends Setting<Integer> {
         this.value = value;
     }
     
-    @Override
-    public JsonElement toJson() {
-        return new JsonPrimitive(value);
-    }
-
-    @Override
-    public void fromJson(JsonElement json) {
-        if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
-            this.value = json.getAsInt();
-        } else {
-            this.value = KEY_NONE;
-        }
-    }
+    //@Override
+    //public JsonElement toJson() {
+    //    return new JsonPrimitive(value);
+    //}
+    
+    //@Override
+    //public void fromJson(JsonElement json) {
+    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
+    //        this.value = json.getAsInt();
+    //    } else {
+    //        this.value = KEY_NONE;
+    //    }
+    //}
 }
