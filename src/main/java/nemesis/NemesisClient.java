@@ -10,8 +10,6 @@ package nemesis;
 
 import nemesis.manager.*;
 import nemesis.impl.module.ModuleManager;
-import nemesis.impl.gui.screen.ClickGuiScreen;
-import nemesis.impl.command.*;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.api.ClientModInitializer;
@@ -32,9 +30,6 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
 	//managers
 	    public static ConfigManager configManager;
 	    public static ModuleManager moduleManager;
-	    public static EventManager eventManager;
-	//gui 
-	    public static ClickGuiScreen clickGuiScreen = new ClickGuiScreen();
 	
 	public static final Logger LOGGER = LoggerFactory.getLogger(CLIENT_NAME);
 
@@ -63,12 +58,8 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
 	    //Register Manager
 	        moduleManager = new ModuleManager();
 	        configManager = new ConfigManager();
-	        eventManager = new EventManager();
 	   
 	   //config manager
 	        configManager.loadConfig();
-	   
-	   //command
-	   OpenGui.register();
 	}
 }
