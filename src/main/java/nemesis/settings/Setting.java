@@ -1,6 +1,6 @@
 package nemesis.settings;
 
-import com.google.gson.JsonElement;
+//import com.google.gson.JsonElement;
 
 public abstract class Setting<T> {
     protected final String name;
@@ -30,6 +30,6 @@ public abstract class Setting<T> {
         this.onChanged = callback;
     }
     
-    public abstract void fromJson(JsonElement json);
-    public abstract JsonElement toJson();
+    //public abstract void fromJson(JsonElement json);
+    //public abstract JsonElement toJson();
 }
