@@ -1,7 +1,7 @@
 package nemesis.settings.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 
 public class IntSetting extends Setting<Integer> {
@@ -26,15 +26,15 @@ public class IntSetting extends Setting<Integer> {
         this.value = Math.max(min, Math.min(max, value));
     }
     
-    @Override
-    public void fromJson(JsonElement json) {
-        if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
-            this.value = json.getAsInt();
-        }
-    }
+    //@Override
+    //public void fromJson(JsonElement json) {
+    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
+    //        this.value = json.getAsInt();
+    //    }
+    //}
 
-    @Override
-    public JsonElement toJson() {
-        return new JsonPrimitive(value);
-    }
+    //@Override
+    //public JsonElement toJson() {
+    //    return new JsonPrimitive(value);
+    //}
 }
