@@ -1,7 +1,7 @@
 package nemesis.settings.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 
 public class DoubleSetting extends Setting<Double> {
@@ -26,15 +26,15 @@ public class DoubleSetting extends Setting<Double> {
         this.value = Math.max(min, Math.min(max, value));
     }
     
-    @Override
-    public void fromJson(JsonElement json) {
-        if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
-            set(json.getAsDouble());
-        }
-    }
+    //@Override
+    //public void fromJson(JsonElement json) {
+    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
+    //        set(json.getAsDouble());
+    //    }
+    //}
     
-    @Override
-    public JsonElement toJson() {
-        return new JsonPrimitive(value);
-    }
+    //@Override
+    //public JsonElement toJson() {
+    //    return new JsonPrimitive(value);
+    //}
 }
