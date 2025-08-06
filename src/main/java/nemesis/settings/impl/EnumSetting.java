@@ -1,7 +1,7 @@
 package nemesis.settings.impl;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
+//import com.google.gson.JsonElement;
+//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 
 public class EnumSetting<T extends Enum<T>> extends Setting<T> {
@@ -21,21 +21,21 @@ public class EnumSetting<T extends Enum<T>> extends Setting<T> {
         return values;
     }
     
-    @Override
-    public void fromJson(JsonElement json) {
-        if (json.isJsonPrimitive()) {
-            String name = json.getAsString();
-            for (T constant : values) {
-                if (constant.name().equalsIgnoreCase(name)) {
-                    value = constant;
-                    return;
-                }
-            }
-        }
-    }
+    //@Override
+    //public void fromJson(JsonElement json) {
+    //    if (json.isJsonPrimitive()) {
+    //        String name = json.getAsString();
+    //        for (T constant : values) {
+    //            if (constant.name().equalsIgnoreCase(name)) {
+    //                value = constant;
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
     
-    @Override
-    public JsonElement toJson() {
-        return new JsonPrimitive(value.name());
-    }
+    //@Override
+    //public JsonElement toJson() {
+    //    return new JsonPrimitive(value.name());
+    //}
 }
