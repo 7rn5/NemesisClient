@@ -27,8 +27,3 @@ Minecraft utility mod for 2b2t
 - Color Management  
 - UI  
 
-## Commands
-
-## To do
-> add click gui  
-> fix config manager  
