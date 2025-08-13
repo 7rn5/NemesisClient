@@ -23,7 +23,7 @@ Minecraft utility mod for 2b2t
 **Exploit [0]**  
   
 
-**Client [0]**  
+**Client [2]**  
 - Color Management  
 - UI  
 
