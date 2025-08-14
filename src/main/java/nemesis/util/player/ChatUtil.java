@@ -17,37 +17,40 @@ public class ChatUtil {
     //private static final MinecraftClient mc = MinecraftClient.getInstance();
     public static final String CLIENT_PREFIX = "§7[§FNemesis§7] §r";
     
-    public static void clientSendMessage(String message) {clientSendMessage(message, 0);}
+    public static void clientSendMessage(String message) {
+        //clientSendMessage(message, 0);
+        mc.inGameHud.getChatHud().addMessage(Text.literal(CLIENT_PREFIX + message));
+    }
 
-    public static void clientSendMessage(String message, int id) {
-        if (mc.player == null || mc.inGameHud == null) return;
+    //public static void clientSendMessage(String message, int id) {
+        //if (mc.player == null || mc.inGameHud == null) return;
         
-        int gray = new Color(170, 170, 170).getRGB();
+        //int gray = new Color(170, 170, 170).getRGB();
 
-        MessageIndicator messageIndicator = new MessageIndicator(
-            gray,
-            null,
-            Text.empty(),
-            "Nemesis"
-        );
-        ((IChatHud) mc.inGameHud.getChatHud()).addMessage(Text.of(CLIENT_PREFIX + message), messageIndicator, id);
+        //MessageIndicator messageIndicator = new MessageIndicator(
+        //    gray,
+        //    null,
+        //    Text.empty(),
+        //    "Nemesis"
+        //);
+        //((IChatHud) mc.inGameHud.getChatHud()).addMessage(Text.of(CLIENT_PREFIX + message), messageIndicator, id);
         //ChatHud chatHud = mc.inGameHud.getChatHud();
 
         // メッセージ送信
         //chatHud.addMessage(Text.of(CLIENT_PREFIX + message), indicator, id);
-    }
+    //}
     
     //info
     public static void info(String message) {
-        clientSendMessage(Formatting.GRAY + message);
+        clientSendMessage("§7" + message);
     }
     //warning 
     public static void warning(String message) {
-        clientSendMessage(Formatting.YELLOW + message);
+        clientSendMessage("§e" + message);
     }
     //error
     public static void error(String message) {
-        clientSendMessage(Formatting.RED + message);
+        clientSendMessage("§7" + message);
     }
     //server send message 
     public static void serverSendMessage(PlayerEntity player, String message)
