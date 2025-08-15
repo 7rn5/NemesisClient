@@ -1,4 +1,4 @@
-package nemesis.settings.impl;
+/*package nemesis.settings.impl;
 
 //import com.google.gson.JsonElement;
 //import com.google.gson.JsonPrimitive;
@@ -37,4 +37,4 @@ public class IntSetting extends Setting<Integer> {
     //public JsonElement toJson() {
     //    return new JsonPrimitive(value);
     //}
-}
+}*/
