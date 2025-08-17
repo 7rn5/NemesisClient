@@ -1,4 +1,4 @@
-package nemesis.impl.gui;
+/*package nemesis.impl.gui;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -47,5 +47,50 @@ public class ClickGui extends Screen {
     @Override
     public boolean shouldPause() {
         return false;
+    }
+}*/
+
+
+package nemesis.impl.gui;
+
+import nemesis.impl.gui.panel.CategoryPanel;
+import nemesis.impl.module.Module;
+import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.font.TextRenderer;
+import net.minecraft.text.Text;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ClickGui extends Screen {
+    private final List<CategoryPanel> categoryPanels = new ArrayList<>();
+
+    public ClickGui() {
+        super(Text.of("Click GUI"));
+
+        int x = 10;
+        for (Module.Category category : Module.Category.values()) {
+            categoryPanels.add(new CategoryPanel(category, x, 20));
+            x += 120; // パネル間の間隔
+        }
+    }
+
+    @Override
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        super.render(context, mouseX, mouseY, delta);
+        TextRenderer textRenderer = this.textRenderer;
+
+        for (CategoryPanel panel : categoryPanels) {
+            panel.render(context, textRenderer, mouseX, mouseY);
+        }
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        for (CategoryPanel panel : categoryPanels) {
+            if (panel.mouseClicked(mouseX, mouseY, button)) return true;
+        }
+        return super.mouseClicked(mouseX, mouseY, button);
     }
 }
