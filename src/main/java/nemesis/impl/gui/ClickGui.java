@@ -63,17 +63,26 @@ import net.minecraft.text.Text;
 import java.util.ArrayList;
 import java.util.List;
 
+import static nemesis.NemesisClient.moduleManager;
+
 public class ClickGui extends Screen {
     private final List<CategoryPanel> categoryPanels = new ArrayList<>();
 
     public ClickGui() {
         super(Text.of("Click GUI"));
-
+        
         int x = 10;
         for (Module.Category category : Module.Category.values()) {
-            categoryPanels.add(new CategoryPanel(category, x, 20));
-            x += 120; // パネル間の間隔
+            List<Module> mods = moduleManager.getByCategory(category);
+            categoryPanels.add(new CategoryPanel(category, mods, x, 20));
+            x += 120;
         }
+        
+        //int x = 10;
+        //for (Module.Category category : Module.Category.values()) {
+        //    categoryPanels.add(new CategoryPanel(category, x, 20));
+        //    x += 120; // パネル間の間隔
+        //}
     }
 
     @Override
