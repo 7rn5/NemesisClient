@@ -69,6 +69,9 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         //config manager
         configManager.loadConfig();
         
+        //module manager
+        moduleManager.init();
+        
         openGuiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.nemesis.open_gui", // 翻訳キー（langファイルで名前変更可能）
                 InputUtil.Type.KEYSYM, // キータイプ（キーボード、マウスなど）
