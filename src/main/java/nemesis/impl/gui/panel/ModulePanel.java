@@ -3,6 +3,7 @@ package nemesis.impl.gui.panel;
 import nemesis.impl.gui.widget.Widget;
 import nemesis.impl.module.Module;
 import nemesis.settings.Setting;
+import nemesis.settings.impl.*;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
@@ -20,12 +21,23 @@ public class ModulePanel {
         this.y = y;
 
         // モジュールの settings を SettingPanel に変換して追加
-        int offsetY = 14; // モジュールタイトルの高さ
+        int offsetY = 20; // モジュールタイトルの高さ
+        //int yOffset = 14;
+        
         for (Setting<?> setting : module.getSettings()) {
-            // Setting に対応する Widget を生成するファクトリーを呼ぶ
-            settingPanels.add(new SettingPanel<>(setting, x + 5, y + offsetY));
-            //settingPanels.add(new SettingPanel<>(setting, WidgetFactory.create(setting), x + 5, y + offsetY));
-            offsetY += Widget.HEIGHT + 2;
+            /*if (setting instanceof BoolSetting) {
+            *    //drawBoolWidget(context, x, offsetY, (BoolSetting) setting);
+            *    offsetY += Widget.HEIGHT + Widget.PADDING;
+            *} else if (setting instanceof BindSetting) {
+            *    //drawBindWidget(context, x, offsetY, (BindSetting) setting);
+            *    offsetY += Widget.HEIGHT + Widget.PADDING;
+            *} else if (setting instanceof ColorSetting) {
+            *    //drawColorWidget(context, x, offsetY, (ColorSetting) setting);
+            *    offsetY += Widget.HEIGHT * 3 + Widget.PADDING;
+            }*/
+            
+            settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
+            offsetY += Widget.HEIGHT + 15;
         }
     }
 
