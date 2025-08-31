@@ -7,6 +7,7 @@ import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 import static nemesis.NemesisClient.moduleManager;
 
@@ -33,6 +34,9 @@ public class CategoryPanel {
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         // カテゴリ名
         context.drawText(textRenderer, category.getName(), x, y, 0x00FFAA, false);
+        
+        context.drawBorder(x, y, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        
         if (expanded) {
             for (ModulePanel panel : modulePanels) {
                 panel.render(context, textRenderer, mouseX, mouseY);
