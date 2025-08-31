@@ -10,6 +10,8 @@ import net.minecraft.client.gui.DrawContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.awt.Color;
+
 public class ModulePanel {
     private final Module module;
     private final List<SettingPanel<?>> settingPanels = new ArrayList<>();
@@ -33,9 +35,11 @@ public class ModulePanel {
         // モジュール名
         context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
         
+        context.drawBorder(x, y, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        
         if (expanded) {
             for (SettingPanel<?> panel : settingPanels) {
-                panel.render(context, textRenderer, mouseX, mouseY);
+                panel.render(context, textRenderer, mouseX, mouseY + 2);
             }
         }
     }
