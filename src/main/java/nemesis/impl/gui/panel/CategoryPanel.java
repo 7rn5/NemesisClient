@@ -17,6 +17,7 @@ public class CategoryPanel {
     private final List<ModulePanel> modulePanels = new ArrayList<>();
     private final List<Module> modules;
     private int x, y;
+    public static int offsetY;
     
     public CategoryPanel(Module.Category category, List<Module> modules, int x, int y) {
         this.category = category;
@@ -24,18 +25,19 @@ public class CategoryPanel {
         this.y = y;
         this.modules = modules != null ? modules : new ArrayList<>();
         
-        int offsetY = 20;
+        offsetY = 16;
         for (Module module : this.modules) {
-            modulePanels.add(new ModulePanel(module, x + 5, y+ offsetY));
-            offsetY += 14;
+            modulePanels.add(new ModulePanel(module, x, y + offsetY));
+            offsetY += 17;
         }
+        offsetY += offsetY;
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         // カテゴリ名
         context.drawText(textRenderer, category.getName(), x, y, 0x00FFAA, false);
         
-        context.drawBorder(x, y, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
         
         if (expanded) {
             for (ModulePanel panel : modulePanels) {
@@ -58,7 +60,7 @@ public class CategoryPanel {
     }
     
     private boolean isHovered(double mouseX, double mouseY) {
-        return mouseX >= this.x && mouseX <= this.x + Widget.WIDTH &&
-                mouseY >= this.y && mouseY <= this.y + Widget.HEIGHT;
+        return mouseX >= this.x - 4 && mouseX <= this.x + Widget.WIDTH &&
+                mouseY >= this.y - 4 && mouseY <= this.y + Widget.HEIGHT;
     }
 }

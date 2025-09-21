@@ -1,5 +1,6 @@
 package nemesis.impl.gui.panel;
 
+import nemesis.impl.gui.panel.CategoryPanel;
 import nemesis.impl.gui.widget.Widget;
 import nemesis.impl.module.Module;
 import nemesis.settings.Setting;
@@ -23,11 +24,11 @@ public class ModulePanel {
         this.x = x;
         this.y = y;
         
-        int offsetY = 14;
+        int offsetY = 28;
         
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
-            offsetY += Widget.HEIGHT + 2;
+            offsetY += Widget.HEIGHT + 3;
         }
     }
     
@@ -35,7 +36,7 @@ public class ModulePanel {
         // モジュール名
         context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
         
-        context.drawBorder(x, y, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4, Widget.HEIGHT - 1, Color.WHITE.getRGB());
         
         if (expanded) {
             for (SettingPanel<?> panel : settingPanels) {
@@ -58,7 +59,7 @@ public class ModulePanel {
     }
     
     private boolean isHovered(double mouseX, double mouseY) {
-        return mouseX >= this.x && mouseX <= this.x + Widget.WIDTH &&
-                mouseY >= this.y && mouseY <= this.y + Widget.HEIGHT;
+        return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 4 &&
+                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 1;
     }
 }
