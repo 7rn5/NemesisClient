@@ -46,4 +46,8 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
     public void mouseDragged(EnumSetting<T> setting, double mouseX) {
         // なし
     }
+    
+    public static int getWHeight() {
+        return Widget.HEIGHT;
+    }
 }

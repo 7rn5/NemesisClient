@@ -90,4 +90,8 @@ public class ColorWidget implements Widget<ColorSetting> {
         } catch (UnsupportedFlavorException | IOException | NumberFormatException ignored) {}
         return null;
     }
+    
+    public static int getWHeight() {
+        return Widget.HEIGHT;
+    }
 }

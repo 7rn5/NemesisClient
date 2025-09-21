@@ -12,16 +12,16 @@ import static nemesis.NemesisClient.mc;
 
 public class BindWidget implements Widget<BindSetting> {
     private boolean listening = false; // キー入力待機中フラグ
-
+    
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, BindSetting setting, int x, int y, int mouseX, int mouseY) {
         // 背景色
         int bgColor = listening ? new Color(50, 50, 150, 150).getRGB() : new Color(50, 50, 50, 150).getRGB();
         context.fill(x, y, x + WIDTH, y + HEIGHT, bgColor);
-
+        
         // 枠線
         context.drawBorder(x, y, WIDTH, HEIGHT, Color.BLACK.getRGB());
-
+        
         // 表示テキスト
         String keyName = setting.getKeyName();
         String label = setting.getName() + ": " + (listening ? "Press a key..." : keyName);
@@ -42,18 +42,22 @@ public class BindWidget implements Widget<BindSetting> {
     public void mouseDragged(BindSetting setting, double mouseX) {
         // ドラッグは不要
     }
-
+    
     // このメソッドはGUI側で呼び出す想定（キーイベント時）
     public boolean keyPressed(BindSetting setting, int keyCode, int scanCode, int modifiers) {
         if (!listening) return false;
-
+        
         if (keyCode == GLFW.GLFW_KEY_ESCAPE) { // ESCで解除
             setting.set(BindSetting.KEY_NONE);
         } else {
             setting.set(keyCode);
         }
-
+        
         listening = false;
         return true;
+    }
+    
+    public static int getWHeight() {
+        return Widget.HEIGHT;
     }
 }

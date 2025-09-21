@@ -21,7 +21,7 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), false);
 
         // スライダーの位置
-        int sliderX = x + 40; // 数字の横から開始
+        int sliderX = x + 5; // 数字の横から開始
         int sliderY = y + HEIGHT / 2;
         int sliderWidth = WIDTH;
         int sliderHeight = 2;
@@ -69,5 +69,9 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         double percent = Math.max(0, Math.min(1, (mouseX - sliderX) / sliderWidth));
         double newValue = min + percent * (max - min);
         setting.set(newValue);
+    }
+    
+    public static int getWHeight() {
+        return Widget.HEIGHT;
     }
 }

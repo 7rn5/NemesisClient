@@ -35,4 +35,8 @@ public class BoolWidget implements Widget<BoolSetting> {
     public void mouseDragged(BoolSetting setting, double mouseX) {
         // BoolWidgetはドラッグ不要なので何もしない
     }
+    
+    public static int getWHeight() {
+        return Widget.HEIGHT;
+    }
 }
