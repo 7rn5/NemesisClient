@@ -8,19 +8,31 @@ Minecraft utility mod for 2b2t
 ・open click gui          `Right Shift`  
 
 ## Features
-**Combat [0]**  
+**Combat [1]**  
+- Offhand  
+
+
+**Misc [1]**  
+- Announcer  
+
+
+**Visual [1]**  
+- NoRender  
+
+
+**Movement [0]**  
+- NoJumpDelay  
+- NoSlow  
+- Sprint  
+- Velocity  
   
 
 **Player [0]**  
-  
-
-**Visual [0]**  
-  
-
-**Movement [0]**  
+- SpeedMine  
   
 
 **Exploit [0]**  
+- Multitask  
   
 
 **Client [2]**  
