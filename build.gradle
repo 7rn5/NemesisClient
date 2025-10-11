@@ -91,28 +91,27 @@ tasks.register("GitCommit") {
 
     doLast {
         println("✅ Build finished, checking for changes...")
-
-        // 変更があるかチェック
+        
         def changes = "git status --porcelain".execute().text.trim()
-
+        
         if (changes) {
             println("📦 Detected changes, committing...")
-
+            
             exec {
                 commandLine "git", "add", "."
             }
-
+            
             exec {
                 commandLine "git", "commit", "-m", "Auto build update on ${new Date().format('yyyy-MM-dd HH:mm:ss')}"
                 ignoreExitValue = true
             }
-
-            println("🚀 Pushing to remote...")
+            
+            println("Pushing to remote...")
             exec {
                 commandLine "git", "push"
                 ignoreExitValue = true
             }
-
+            
             println("✅ Git push complete!")
         } else {
             println("⚠️ No changes detected, skipping commit/push.")
