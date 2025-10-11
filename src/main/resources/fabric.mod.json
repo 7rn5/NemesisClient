@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "nemesis",
+	"version": "${version}",
+	"name": "Nemesis Client",
+	"description": "minecraft best utility mod for 2b2t",
+	"authors": [
+		"7rn5"
+	],
+	"contact": {
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/nemesis/icon.png",
+	"environment": "client",
+	"entrypoints": {
+	  "client": ["nemesis.NemesisClient"],
+	  "main": ["nemesis.NemesisClient"]
+	},
+	"mixins": [
+		"nemesis.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.2",
+		"minecraft": "~1.21.4",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}

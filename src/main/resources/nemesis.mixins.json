@@ -1,0 +1,18 @@
+{
+	"required": true,
+	"package": "nemesis.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+	    "GameOptionsMixin",
+	    "KeyBindingMixin",
+	    "MinecraftClientMixin",
+	    "SplashTextResourceSupplierMixin",
+	    "TitleScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

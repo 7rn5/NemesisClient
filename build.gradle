@@ -1,0 +1,121 @@
+plugins {
+  id 'java'
+	id 'fabric-loom' version '1.11-SNAPSHOT'  //dont change loom version
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+  mavenCentral()
+}
+
+loom {
+	mods {
+		"nemesis" {
+			sourceSet sourceSets.main
+		}
+	}
+
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	//implementation 'com.google.guava:guava:33.3.1-jre'
+	//include(implementation("org.yaml:snakeyaml:1.28"))
+}
+
+processResources {
+	inputs.property "version", project.version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": inputs.properties.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 21
+}
+
+java {
+	// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+	// if it is present.
+	// If you remove this line, sources will not be generated.
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_21
+}
+
+jar {
+	inputs.property "archivesName", project.base.archivesName
+
+	from("LICENSE") {
+		rename { "${it}_${inputs.properties.archivesName}"}
+	}
+}
+
+// configure the maven publication
+publishing {
+	publications {
+		create("mavenJava", MavenPublication) {
+			artifactId = project.archives_base_name
+			from components.java
+		}
+	}
+
+	// See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+	repositories {
+		// Add repositories to publish to here.
+		// Notice: This block does NOT have the same function as the block in the top level.
+		// The repositories here will be used for publishing your artifact, not for
+		// retrieving dependencies.
+	}
+}
+
+tasks.register("GitCommit") {
+    group = "automation"
+    description = "Runs build, and if successful, commits and pushes to Git."
+
+    // build完了後にこのタスクが呼ばれる
+    dependsOn("build")
+
+    doLast {
+        println("✅ Build finished, checking for changes...")
+
+        // 変更があるかチェック
+        def changes = "git status --porcelain".execute().text.trim()
+
+        if (changes) {
+            println("📦 Detected changes, committing...")
+
+            exec {
+                commandLine "git", "add", "."
+            }
+
+            exec {
+                commandLine "git", "commit", "-m", "Auto build update on ${new Date().format('yyyy-MM-dd HH:mm:ss')}"
+                ignoreExitValue = true
+            }
+
+            println("🚀 Pushing to remote...")
+            exec {
+                commandLine "git", "push"
+                ignoreExitValue = true
+            }
+
+            println("✅ Git push complete!")
+        } else {
+            println("⚠️ No changes detected, skipping commit/push.")
+        }
+    }
+}

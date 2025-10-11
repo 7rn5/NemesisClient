@@ -1,0 +1,7 @@
+{
+  "gui.click": {
+    "sounds": [
+      "nemesis:gui/click"
+    ]
+  }
+}
