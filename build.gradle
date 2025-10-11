@@ -118,7 +118,3 @@ tasks.register("GitCommit") {
         println "✅  Git push  complete!"
     }
 }
-
-tasks.named("build") {
-    finalizedBy("GitCommit")
-}
