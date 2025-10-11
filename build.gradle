@@ -86,35 +86,39 @@ tasks.register("GitCommit") {
     group = "automation"
     description = "Runs build, and if successful, commits and pushes to Git."
 
-    // build完了後にこのタスクが呼ばれる
-    dependsOn("build")
-
     doLast {
         println("✅ Build finished, checking for changes...")
         
-        def changes = "git status --porcelain".execute().text.trim()
-        
-        if (changes) {
-            println("📦 Detected changes, committing...")
-            
-            exec {
-                commandLine "git", "add", "."
-            }
-            
-            exec {
-                commandLine "git", "commit", "-m", "Auto build update on ${new Date().format('yyyy-MM-dd HH:mm:ss')}"
-                ignoreExitValue = true
-            }
-            
-            println("Pushing to remote...")
-            exec {
-                commandLine "git", "push"
-                ignoreExitValue = true
-            }
-            
-            println("✅ Git push complete!")
-        } else {
-            println("⚠️ No changes detected, skipping commit/push.")
+        def changes = new ByteArrayOutputStream()
+        exec {
+            commandLine "git", "status", "--porcelain"
+            standardOutput = changes
         }
+        
+        if (changes.toString().trim().isEmpty()) {
+            println "No changes detexted -- skipping commit & push"
+            return
+        }
+        
+        println("📦 Detected changes, committing...")
+        
+        exec {
+            commandLine "git", "add", "."
+        }
+        
+        exec {
+            commandLine "git", "commit", "-m", "Auto build update on ${new Date().format('yyyy-MM-dd HH:mm:ss')}"
+        }
+        
+        println "Pushing to Github..."
+        exec {
+            commandLine "git", "push"
+        }
+        
+        println "✅  Git push  complete!"
     }
+}
+
+tasks.named("build") {
+    finalizedBy("GitCommit")
 }
