@@ -62,6 +62,7 @@ public class ModulePanel {
             }
             
             module.toggle();
+            module.onToggle();
             return true;
         }
         if (button == 1 && isHovered(mouseX, mouseY)) {

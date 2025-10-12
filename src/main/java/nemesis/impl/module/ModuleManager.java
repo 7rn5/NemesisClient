@@ -35,6 +35,7 @@ public class ModuleManager {
           add(new Multitask());
         //Client
           add(new ColorManagement());
+          add(new Notification());
           add(new Ui());
     }
 

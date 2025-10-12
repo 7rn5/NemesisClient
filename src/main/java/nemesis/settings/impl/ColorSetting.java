@@ -8,11 +8,24 @@ import java.awt.*;
 
 public class ColorSetting extends Setting<Color> {
     private final boolean Alpha;
-    //private final boolean Sync;
+    private final boolean Sync;
+    
+    public ColorSetting(String name, Color defaultValue) {
+        super(name, defaultValue);
+        this.Alpha = false;
+        this.Sync = true;
+    }
     
     public ColorSetting(String name, Color defaultValue, boolean Alpha) {
         super(name, defaultValue);
         this.Alpha = Alpha;
+        this.Sync = true;
+    }
+    
+    private ColorSetting(String name, Color defaultValue, boolean Alpha, boolean Sync) {
+        super(name, defaultValue);
+        this.Alpha = Alpha;
+        this.Sync = Sync;
     }
     
     public int getRed() {
@@ -31,8 +44,16 @@ public class ColorSetting extends Setting<Color> {
         return Alpha ? value.getAlpha() : 255;
     }
     
+    public boolean onSync() {
+        return Sync;
+    }
+    
     public void setValue(int r, int g, int b, int a) {
         this.value = new Color(r, g, b, Alpha ? a : 255);
+    }
+    
+    public int getRGB() {
+        return (getAlpha() << 24 | getRed() << 16 | getRed() << 8 | getBlue());
     }
     
     //@Override

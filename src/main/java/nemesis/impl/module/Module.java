@@ -4,6 +4,7 @@ import nemesis.event.bus.Subscribe;
 import nemesis.event.TickEvent;
 import nemesis.settings.Setting;
 import nemesis.settings.impl.BindSetting;
+import nemesis.util.player.ChatUtil;
 
 import java.util.*;
 
@@ -52,8 +53,17 @@ public abstract class Module {
     }
     
     public void onEnabled() {}
+    
     public void onDisabled() {}
-    public void onToggle() {}
+    
+    public void onToggle() {
+        int id = getName().hashCode();
+        if (isEnabled()) {
+            ChatUtil.info("§a[+]" + getName(), id);
+        } else {
+            ChatUtil.info("§c[-]" + getName(), id);
+        }
+    }
     
     public void enable() {
         setEnabled(true);
@@ -101,4 +111,6 @@ public abstract class Module {
             return Arrays.asList(values());
         }
     }
+    
+    
 }
