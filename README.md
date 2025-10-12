@@ -35,7 +35,8 @@ Minecraft utility mod for 2b2t
 - Multitask  
   
 
-**Client [2]**  
+**Client [3]**  
 - Color Management  
+- Notification  
 - UI  
 
