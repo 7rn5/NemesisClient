@@ -12,6 +12,7 @@ public abstract class Module {
     private final String name, description;
     private Category category;
     private boolean enabled = false;
+    private boolean antiDisable = false;
     private final BindSetting Bind;
     private final List<Module> modules = new ArrayList<>();
     private final List<Setting<?>> settings = new ArrayList<>();
@@ -21,7 +22,17 @@ public abstract class Module {
         this.description = description;
         this.category = category;
         
-        this.Bind = new BindSetting("bind", BindSetting.KEY_NONE);
+        this.Bind = new BindSetting("Bind", BindSetting.KEY_NONE);
+        this.settings.add(Bind);
+    }
+    
+    public Module(String name, String description, Category category, boolean antiDisable) {
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.antiDisable = antiDisable;
+        
+        this.Bind = new BindSetting("Bind", BindSetting.KEY_NONE);
         this.settings.add(Bind);
     }
     
@@ -42,8 +53,12 @@ public abstract class Module {
             this.enabled = enabled;
             if (enabled) {
                 onEnabled();
+                int id = getName().hashCode();
+                ChatUtil.info("§a[+]§f" + getName(), id);
             } else {
                 onDisabled();
+                int id = getName().hashCode();
+                ChatUtil.info("§c[-]§f" + getName(), id);
             }
         }
     }
@@ -52,29 +67,20 @@ public abstract class Module {
         return !enabled;
     }
     
+    public boolean canDisable() {
+        return !antiDisable;
+    }
+    
     public void onEnabled() {}
     
     public void onDisabled() {}
     
-    public void onToggle() {
-        int id = getName().hashCode();
-        if (isEnabled()) {
-            ChatUtil.info("§a[+]" + getName(), id);
-        } else {
-            ChatUtil.info("§c[-]" + getName(), id);
-        }
-    }
-    
     public void enable() {
         setEnabled(true);
-        this.onToggle();
-        this.onEnabled();
     }
 
     public void disable() {
         setEnabled(false);
-        this.onToggle();
-        this.onDisabled();
     }
     
     public void toggle() {
@@ -89,6 +95,7 @@ public abstract class Module {
         settings.add(setting);
         return setting;
     }
+    
     public enum Category {
         Combat("Combat"),
         Misc("Misc"),

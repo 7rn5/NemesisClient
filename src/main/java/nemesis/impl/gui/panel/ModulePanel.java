@@ -33,13 +33,13 @@ public class ModulePanel {
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        Color enabledColor = new Color(255, 255, 255, 150);
-        Color disabledColor = new Color(150, 150, 150, 150);
+        Color enabledColor = new Color(0, 0, 0, 0);
+        Color disabledColor = new Color(255, 255, 255, 150);
         
         if (module.isEnabled()) {
-            context.fill(x - 1, y - 1, x + 95, y + 12, toRGBA(enabledColor));
+            context.fill(x - 1, y - 1, x + 94, y + 12, toRGBA(enabledColor));
         } else {
-            context.fill(x - 1, y - 1, x + 95, y + 12, toRGBA(disabledColor));
+            context.fill(x - 1, y - 1, x + 94, y + 12, toRGBA(disabledColor));
         }
         
         context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
@@ -54,15 +54,8 @@ public class ModulePanel {
     }
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && isHovered(mouseX, mouseY)) {
-            if (!module.isEnabled()) {
-                module.onEnabled();
-            } else {
-               module.onDisabled();
-            }
-            
+        if (button == 0 && isHovered(mouseX, mouseY) && module.canDisable()) {
             module.toggle();
-            module.onToggle();
             return true;
         }
         if (button == 1 && isHovered(mouseX, mouseY)) {

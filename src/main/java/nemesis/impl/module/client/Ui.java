@@ -1,15 +1,18 @@
 package nemesis.impl.module.client;
 
+import nemesis.event.bus.Subscribe;
+import nemesis.event.ClickGuiCloseEvent;
+import nemesis.impl.gui.ClickGui;
 import nemesis.impl.module.Module;
 import nemesis.settings.impl.BoolSetting;
 import nemesis.settings.impl.ColorSetting;
 import nemesis.settings.impl.DoubleSetting;
 import nemesis.settings.impl.EnumSetting;
 
+import static nemesis.NemesisClient.mc;
+
 import org.lwjgl.glfw.GLFW;
 import java.awt.Color;
-
-import static nemesis.NemesisClient.mc;
 
 public class Ui extends Module {
     public final BoolSetting fill = addSetting(new BoolSetting("ModuleFill", true));
@@ -26,6 +29,6 @@ public class Ui extends Module {
     
     
     public Ui() {
-        super("UI", "Management to your click gui", Category.Client);
+        super("UI", "Management to your click gui", Category.Client, true);
     }
 }

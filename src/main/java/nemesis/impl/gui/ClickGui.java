@@ -1,5 +1,7 @@
 package nemesis.impl.gui;
 
+import nemesis.NemesisClient;
+import nemesis.event.ClickGuiCloseEvent;
 import nemesis.impl.gui.panel.CategoryPanel;
 import nemesis.impl.module.client.Ui;
 import nemesis.impl.module.Module;
@@ -15,6 +17,10 @@ import static nemesis.NemesisClient.moduleManager;
 
 public class ClickGui extends Screen {
     private final List<CategoryPanel> categoryPanels = new ArrayList<>();
+    
+    private static Ui getUiModule() {
+        return moduleManager.get(Ui.class);
+    }
 
     public ClickGui() {
         super(Text.of("Click GUI"));
@@ -48,7 +54,8 @@ public class ClickGui extends Screen {
     @Override
     public void removed() {
         super.removed();
-        moduleManager.get(Ui.class).disable();
+        getUiModule().disable();
+        NemesisClient.eventHandler.post(new ClickGuiCloseEvent());
     }
     
     @Override
