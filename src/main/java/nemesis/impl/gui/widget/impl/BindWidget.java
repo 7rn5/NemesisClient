@@ -11,18 +11,18 @@ import java.awt.Color;
 import static nemesis.NemesisClient.mc;
 
 public class BindWidget implements Widget<BindSetting> {
-    private boolean listening = false; // キー入力待機中フラグ
+    private boolean listening = false;
     
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, BindSetting setting, int x, int y, int mouseX, int mouseY) {
-        // 背景色
+        //back ground
         int bgColor = listening ? new Color(50, 50, 150, 150).getRGB() : new Color(50, 50, 50, 150).getRGB();
         context.fill(x, y, x + WIDTH, y + HEIGHT, bgColor);
         
-        // 枠線
+        //outline
         context.drawBorder(x, y, WIDTH, HEIGHT, Color.BLACK.getRGB());
         
-        // 表示テキスト
+        //draw text
         String keyName = setting.getKeyName();
         String label = setting.getName() + ": " + (listening ? "Press a key..." : keyName);
         context.drawText(textRenderer, label, x + PADDING, y + (HEIGHT - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
@@ -30,7 +30,7 @@ public class BindWidget implements Widget<BindSetting> {
 
     @Override
     public boolean mouseClicked(BindSetting setting, double mouseX, double mouseY, int button) {
-        // 左クリックでリスニング開始
+        //left click
         if (button == 0 && mouseX >= 0 && mouseX <= WIDTH && mouseY >= 0 && mouseY <= HEIGHT) {
             listening = !listening;
             return true;
@@ -39,15 +39,13 @@ public class BindWidget implements Widget<BindSetting> {
     }
 
     @Override
-    public void mouseDragged(BindSetting setting, double mouseX) {
-        // ドラッグは不要
-    }
+    public void mouseDragged(BindSetting setting, double mouseX) {}
     
-    // このメソッドはGUI側で呼び出す想定（キーイベント時）
+    //これはあとで連携させる
     public boolean keyPressed(BindSetting setting, int keyCode, int scanCode, int modifiers) {
         if (!listening) return false;
         
-        if (keyCode == GLFW.GLFW_KEY_ESCAPE) { // ESCで解除
+        if (keyCode == GLFW.GLFW_KEY_ESCAPE) {
             setting.set(BindSetting.KEY_NONE);
         } else {
             setting.set(keyCode);
@@ -55,9 +53,5 @@ public class BindWidget implements Widget<BindSetting> {
         
         listening = false;
         return true;
-    }
-    
-    public static int getWHeight() {
-        return Widget.HEIGHT;
     }
 }

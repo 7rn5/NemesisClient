@@ -13,49 +13,48 @@ public class ColorWidget implements Widget<ColorSetting> {
     private static final int SLIDER_WIDTH = 100;
     private static final int BUTTON_WIDTH = 40;
     private static final int BUTTON_HEIGHT = HEIGHT;
-
+    
     private boolean rainbow = false;
-
+    
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, ColorSetting setting, int x, int y, int mouseX, int mouseY) {
         int currentY = y;
-
-        // 1. カラー選択バー（ここでは単純に現在の色を表示）
+        
+        //color picker
         context.fill(x, currentY, x + SLIDER_WIDTH, currentY + HEIGHT, setting.get().getRGB());
         context.drawBorder(x, currentY, SLIDER_WIDTH, HEIGHT, Color.BLACK.getRGB());
         currentY += HEIGHT + PADDING;
-
-        // 2. レインボー切り替え
+        
+        //toggle rainbow
         String rainbowText = "Rainbow: " + (rainbow ? "ON" : "OFF");
         context.drawText(textRenderer, rainbowText, x, currentY, Color.WHITE.getRGB(), false);
         currentY += HEIGHT + PADDING;
-
-        // 3. アルファスライダー表示
+        
+        //alpha slider
         int alphaWidth = (int) ((setting.get().getAlpha() / 255.0) * SLIDER_WIDTH);
         context.fill(x, currentY, x + alphaWidth, currentY + SLIDER_HEIGHT, new Color(200, 200, 200).getRGB());
         context.drawBorder(x, currentY, SLIDER_WIDTH, SLIDER_HEIGHT, Color.BLACK.getRGB());
         currentY += SLIDER_HEIGHT + PADDING;
-
-        // 4. コピー・ペーストボタン
-        // コピー
+        
+        //copy
         context.fill(x, currentY, x + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
         context.drawText(textRenderer, "Copy", x + 5, currentY + 3, Color.WHITE.getRGB(), false);
-        // ペースト
+        //paste
         int pasteX = x + BUTTON_WIDTH + PADDING;
         context.fill(pasteX, currentY, pasteX + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
         context.drawText(textRenderer, "Paste", pasteX + 5, currentY + 3, Color.WHITE.getRGB(), false);
     }
-
+    
     @Override
     public boolean mouseClicked(ColorSetting setting, double mouseX, double mouseY, int button) {
-        // クリック判定（例：コピー・ペーストのボタン範囲）
+        // left click
         if (button == 0) {
-            // Copyボタン
+            //copy
             if (mouseX >= 0 && mouseX <= BUTTON_WIDTH) {
                 copyToClipboard(setting.get());
                 return true;
             }
-            // Pasteボタン
+            //paste
             if (mouseX >= BUTTON_WIDTH + PADDING && mouseX <= BUTTON_WIDTH * 2 + PADDING) {
                 Color pasted = pasteFromClipboard();
                 if (pasted != null) setting.set(pasted);
@@ -64,18 +63,16 @@ public class ColorWidget implements Widget<ColorSetting> {
         }
         return false;
     }
-
+    
     @Override
-    public void mouseDragged(ColorSetting setting, double mouseX) {
-        // ここでスライダー動作（アルファや色変更）を実装できる
-    }
-
+    public void mouseDragged(ColorSetting setting, double mouseX) {}
+    
     private void copyToClipboard(Color color) {
         String rgb = color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + color.getAlpha();
         StringSelection selection = new StringSelection(rgb);
         Toolkit.getDefaultToolkit().getSystemClipboard().setContents(selection, null);
     }
-
+    
     private Color pasteFromClipboard() {
         try {
             String data = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
@@ -89,9 +86,5 @@ public class ColorWidget implements Widget<ColorSetting> {
             }
         } catch (UnsupportedFlavorException | IOException | NumberFormatException ignored) {}
         return null;
-    }
-    
-    public static int getWHeight() {
-        return Widget.HEIGHT;
     }
 }

@@ -18,7 +18,7 @@ public class ModulePanel {
     private final List<SettingPanel<?>> settingPanels = new ArrayList<>();
     private int x, y;
     private boolean expanded = false;
-
+    
     public ModulePanel(Module module, int x, int y) {
         this.module = module;
         this.x = x;
