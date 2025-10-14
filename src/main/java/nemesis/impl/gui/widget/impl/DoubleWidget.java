@@ -20,8 +20,8 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), false);
         
         int sliderX = x + 5;
-        int sliderY = y + HEIGHT / 2;
-        int sliderWidth = WIDTH;
+        int sliderY = y + widgetHeight / 2;
+        int sliderWidth = widgetWidth;
         int sliderHeight = 2;
         
         //background
@@ -41,7 +41,7 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         double min = setting.getMin();
         double max = setting.getMax();
         int sliderX = 40;
-        int sliderWidth = WIDTH;
+        int sliderWidth = widgetWidth;
         
         //slider
         if (mouseX >= sliderX && mouseX <= sliderX + sliderWidth) {
@@ -58,7 +58,7 @@ public class DoubleWidget implements Widget<DoubleSetting> {
             double min = setting.getMin();
             double max = setting.getMax();
             int sliderX = 40;
-            int sliderWidth = WIDTH;
+            int sliderWidth = widgetWidth;
             updateValueFromMouse(setting, mouseX, sliderX, sliderWidth, min, max);
         }
     }

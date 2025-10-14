@@ -12,6 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 import java.util.Random;
 
+import nemesis.impl.module.misc.SplashText;
+import static nemesis.NemesisClient.moduleManager;
+
 @Mixin(SplashTextResourceSupplier.class)
 public abstract class SplashTextResourceSupplierMixin {
     @Unique
@@ -19,9 +22,15 @@ public abstract class SplashTextResourceSupplierMixin {
     
     @Unique
     private final List<String> splashes = getSplashes();
+    
+    private SplashText getSplashTextModule() {
+        return moduleManager.get(SplashText.class);
+    }
 
     @Inject(method = "get", at = @At("HEAD"), cancellable = true)
     private void onApply(CallbackInfoReturnable<SplashTextRenderer> cir) {
+        if (!getSplashTextModule().isEnabled()) return;
+        
         cir.setReturnValue(new SplashTextRenderer(splashes.get(random.nextInt(splashes.size()))));
     }
     

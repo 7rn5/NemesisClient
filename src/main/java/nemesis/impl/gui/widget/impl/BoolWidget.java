@@ -8,26 +8,36 @@ import net.minecraft.client.gui.DrawContext;
 import java.awt.Color;
 
 public class BoolWidget implements Widget<BoolSetting> {
+    private int x, y;
+    
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, BoolSetting setting, int x, int y, int mouseX, int mouseY) {
         //back ground
         int bgColor = setting.get() ? new Color(0, 200, 0, 150).getRGB() : new Color(200, 0, 0, 150).getRGB();
-        context.fill(x, y, x + WIDTH, y + HEIGHT, bgColor);
+        context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
         
         //outline
-        context.drawBorder(x, y, WIDTH, HEIGHT, Color.BLACK.getRGB());
+        context.drawBorder(x, y, widgetWidth, widgetHeight, Color.BLACK.getRGB());
         
-        context.drawText(textRenderer, setting.getName(), x + PADDING, y + (HEIGHT - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
+        context.drawText(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
+        
+        this.x = x;
+        this.y = y;
     }
     
     @Override
     public boolean mouseClicked(BoolSetting setting, double mouseX, double mouseY, int button) {
         //left click
-        if (button == 0 && mouseX >= 0 && mouseX <= WIDTH && mouseY >= 0 && mouseY <= HEIGHT) {
+        if (button == 0 && isHovered(mouseX, mouseY)) {
             setting.toggle();
             return true;
         }
         return false;
+    }
+    
+    private boolean isHovered(double mouseX, double mouseY) {
+        return mouseX >= this.x && mouseX <= this.x + widgetWidth &&
+                mouseY >= this.y && mouseY <= this.y + widgetHeight;
     }
     
     @Override

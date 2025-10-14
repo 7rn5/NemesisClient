@@ -19,10 +19,10 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
         //list
         if (expanded) {
             List<T> values = setting.getValues();
-            int offsetY = HEIGHT;
+            int offsetY = widgetHeight;
             for (T val : values) {
                 context.drawText(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB(), false);
-                offsetY += HEIGHT;
+                offsetY += widgetHeight;
             }
         }
     }

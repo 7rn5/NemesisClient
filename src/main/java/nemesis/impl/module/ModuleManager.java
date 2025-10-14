@@ -22,6 +22,7 @@ public class ModuleManager {
           add(new Offhand());
         //Misc
           add(new Announcer());
+          add(new SplashText());
         //Visual
           add(new NoRender());
         //Movement

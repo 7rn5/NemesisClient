@@ -9,6 +9,8 @@ public interface Widget<T extends Setting<?>> {
     int WIDTH = 100;
     int PADDING = 2;
     int SLIDER_HEIGHT = 6;
+    int widgetHeight = 16;
+    int widgetWidth = 90;
     
     void render(DrawContext context, TextRenderer textRenderer, T setting, int x, int y, int mouseX, int mouseY);
     boolean mouseClicked(T setting, double mouseX, double mouseY, int button);

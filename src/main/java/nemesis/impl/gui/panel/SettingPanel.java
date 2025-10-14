@@ -11,7 +11,6 @@ public class SettingPanel<T extends Setting<?>> {
     private final T setting;
     private final Widget<T> widget;
     private int x, y;
-    private static int settingTotalHeight;
     
     @SuppressWarnings("unchecked")
     public SettingPanel(T setting, int x, int y) {
@@ -36,7 +35,7 @@ public class SettingPanel<T extends Setting<?>> {
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         if (widget != null) {
-            widget.render(context, textRenderer, setting, x, y, mouseX, mouseY - 15);
+            widget.render(context, textRenderer, setting, x, y - 13, mouseX, mouseY);
         }
     }
     
@@ -48,10 +47,6 @@ public class SettingPanel<T extends Setting<?>> {
         if (widget != null) {
             widget.mouseDragged(setting, mouseX);
         }
-    }
-    
-    public int getHeight() {
-        return settingTotalHeight;
     }
     
     public T getSetting() {

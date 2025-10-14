@@ -12,7 +12,8 @@ import java.io.IOException;
 public class ColorWidget implements Widget<ColorSetting> {
     private static final int SLIDER_WIDTH = 100;
     private static final int BUTTON_WIDTH = 40;
-    private static final int BUTTON_HEIGHT = HEIGHT;
+    private static final int BUTTON_HEIGHT = widgetHeight;
+    private int x, y;
     
     private boolean rainbow = false;
     
@@ -21,14 +22,14 @@ public class ColorWidget implements Widget<ColorSetting> {
         int currentY = y;
         
         //color picker
-        context.fill(x, currentY, x + SLIDER_WIDTH, currentY + HEIGHT, setting.get().getRGB());
-        context.drawBorder(x, currentY, SLIDER_WIDTH, HEIGHT, Color.BLACK.getRGB());
-        currentY += HEIGHT + PADDING;
+        context.fill(x, currentY, x + SLIDER_WIDTH, currentY + widgetHeight, setting.get().getRGB());
+        context.drawBorder(x, currentY, SLIDER_WIDTH, widgetHeight, Color.BLACK.getRGB());
+        currentY += widgetHeight + PADDING;
         
         //toggle rainbow
         String rainbowText = "Rainbow: " + (rainbow ? "ON" : "OFF");
         context.drawText(textRenderer, rainbowText, x, currentY, Color.WHITE.getRGB(), false);
-        currentY += HEIGHT + PADDING;
+        currentY += widgetHeight + PADDING;
         
         //alpha slider
         int alphaWidth = (int) ((setting.get().getAlpha() / 255.0) * SLIDER_WIDTH);
@@ -43,12 +44,15 @@ public class ColorWidget implements Widget<ColorSetting> {
         int pasteX = x + BUTTON_WIDTH + PADDING;
         context.fill(pasteX, currentY, pasteX + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
         context.drawText(textRenderer, "Paste", pasteX + 5, currentY + 3, Color.WHITE.getRGB(), false);
+        
+        this.x = x;
+        this.y = y;
     }
     
     @Override
     public boolean mouseClicked(ColorSetting setting, double mouseX, double mouseY, int button) {
         // left click
-        if (button == 0) {
+        /*if (button == 0) {
             //copy
             if (mouseX >= 0 && mouseX <= BUTTON_WIDTH) {
                 copyToClipboard(setting.get());
@@ -60,7 +64,7 @@ public class ColorWidget implements Widget<ColorSetting> {
                 if (pasted != null) setting.set(pasted);
                 return true;
             }
-        }
+        }*/
         return false;
     }
     
