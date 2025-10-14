@@ -25,7 +25,6 @@ public class ModulePanel {
         this.y = y;
         
         int offsetY = 28;
-        
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
             offsetY += Widget.HEIGHT + 3;
@@ -33,8 +32,8 @@ public class ModulePanel {
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        Color enabledColor = new Color(0, 0, 0, 0);
-        Color disabledColor = new Color(255, 255, 255, 150);
+        Color disabledColor = new Color(0, 0, 0, 0);
+        Color enabledColor = new Color(255, 255, 255, 150);
         
         if (module.isEnabled()) {
             context.fill(x - 1, y - 1, x + 94, y + 12, toRGBA(enabledColor));
@@ -47,10 +46,27 @@ public class ModulePanel {
         context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4, Widget.HEIGHT - 1, Color.WHITE.getRGB());
         
         if (expanded) {
+            int offsetY = Widget.HEIGHT + 2;
             for (SettingPanel<?> panel : settingPanels) {
+                panel.setPosition(x, y + offsetY);
                 panel.render(context, textRenderer, mouseX, mouseY);
+                offsetY += Widget.HEIGHT + 2;
             }
         }
+    }
+    
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    
+    public boolean isExpanded() {
+        return expanded;
+    }
+    
+    public int getExpandedHeight() {
+        if (!expanded) return Widget.HEIGHT + 2;
+        return Widget.HEIGHT + 2 + settingPanels.size() * (Widget.HEIGHT + 2);
     }
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {

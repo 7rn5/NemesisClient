@@ -24,6 +24,11 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
                 context.drawText(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB(), false);
                 offsetY += widgetHeight;
             }
+            //ouline
+            int listCount = setting.getSize();
+            context.drawBorder(x, y, widgetWidth, widgetHeight * listCount, Color.WHITE.getRGB());
+        } else {
+            context.drawBorder(x, y, widgetWidth, widgetHeight, Color.WHITE.getRGB());
         }
     }
 

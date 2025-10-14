@@ -64,6 +64,10 @@ public abstract class Module {
     }
     
     public boolean isEnabled() {
+        return enabled;
+    }
+    
+    public boolean isDisabled() {
         return !enabled;
     }
     

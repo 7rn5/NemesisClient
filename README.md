@@ -12,8 +12,9 @@ Minecraft utility mod for 2b2t
 - Offhand  
 
 
-**Misc [1]**  
+**Misc [2]**  
 - Announcer  
+- SplashText
 
 
 **Visual [1]**  
@@ -35,7 +36,8 @@ Minecraft utility mod for 2b2t
 - Multitask  
   
 
-**Client [3]**  
+**Client [4]**  
+- AntiCheat  
 - Color Management  
 - Notification  
 - UI  

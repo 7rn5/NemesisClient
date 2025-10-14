@@ -46,7 +46,10 @@ public abstract class SplashTextResourceSupplierMixin {
               "PRIVATE CLIENT",
               "Who is 7rn5",
               "WE ARE CETD",
-              "Cetd Family"
+              "Cetd Family",
+              "こたろうはゲイ",
+              "こたろうは性奴隷",
+              "こたろうはこたろう"
         );
     }
 }

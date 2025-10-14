@@ -35,6 +35,7 @@ public class ModuleManager {
         //Exploit
           add(new Multitask());
         //Client
+          add(new AntiCheat());
           add(new ColorManagement());
           add(new Notification());
           add(new Ui());

@@ -30,20 +30,24 @@ public class CategoryPanel {
             modulePanels.add(new ModulePanel(module, x, y + offsetY));
             offsetY += 17;
         }
-        offsetY += offsetY;
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        //Color enabledColor = new Color(0, 0, 0, 255);
-        //context.drawBorder(x - 4, y - 4, x + 100, y + moduleManager.getCountCategory(category) * 15, toRGBA(enabledColor));
-        
         context.drawText(textRenderer, category.getName(), x, y, 0x00FFAA, false);
         
         context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
         
         if (expanded) {
+            int offsetY = 16;
             for (ModulePanel panel : modulePanels) {
+                panel.setPosition(x, y + offsetY);
                 panel.render(context, textRenderer, mouseX, mouseY);
+                
+                if (panel.isExpanded()) {
+                    offsetY += panel.getExpandedHeight();
+                } else {
+                    offsetY += Widget.HEIGHT + 2;
+                }
             }
         }
     }

@@ -10,8 +10,8 @@ import java.awt.*;
 public class ColorManagement extends Module {
 
     public ColorManagement() {
-        super("ColorManagement", "management to your color", Category.Client);
-        if (!this.isEnabled())
+        super("ColorManagement", "management to your color", Category.Client, true);
+        if (this.isDisabled())
             this.toggle();
     }
 }
