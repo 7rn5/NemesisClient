@@ -33,9 +33,11 @@ public class CategoryPanel {
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        context.drawText(textRenderer, category.getName(), x, y, 0x00FFAA, false);
-        
         context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        //Color fillCategory = new Color(255, 255, 255, 170);
+        //context.fill(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, toRGBA(fillCategory));
+        
+        context.drawText(textRenderer, category.getName(), x, y, Color.WHITE.getRGB(), false);
         
         if (expanded) {
             int offsetY = 16;
@@ -49,6 +51,10 @@ public class CategoryPanel {
                     offsetY += Widget.HEIGHT + 2;
                 }
             }
+            
+            int countModules = moduleManager.getCountCategory(category);
+            int moduleHeight = 17;
+            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 2 + moduleHeight * countModules, Color.WHITE.getRGB());
         }
     }
     

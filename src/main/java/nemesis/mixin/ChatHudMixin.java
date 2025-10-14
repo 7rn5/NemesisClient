@@ -1,7 +1,7 @@
 package nemesis.mixin;
 
-import nemesis.imixin.IChatHud;
-import nemesis.imixin.IChatHudLine;
+import nemesis.mixininterface.IChatHud;
+import nemesis.mixininterface.IChatHudLine;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.client.gui.hud.ChatHudLine;

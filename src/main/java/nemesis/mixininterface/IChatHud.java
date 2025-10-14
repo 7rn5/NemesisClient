@@ -1,4 +1,4 @@
-package nemesis.imixin;
+package nemesis.mixininterface;
 
 import net.minecraft.text.Text;
 

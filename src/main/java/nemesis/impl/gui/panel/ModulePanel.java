@@ -36,14 +36,14 @@ public class ModulePanel {
         Color enabledColor = new Color(255, 255, 255, 150);
         
         if (module.isEnabled()) {
-            context.fill(x - 1, y - 1, x + 94, y + 12, toRGBA(enabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), toRGBA(enabledColor));
         } else {
-            context.fill(x - 1, y - 1, x + 94, y + 12, toRGBA(disabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), toRGBA(disabledColor));
         }
         
         context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
         
-        context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4, Widget.HEIGHT - 1, Color.WHITE.getRGB());
+        //context.drawBorder(x - 2, y - 2, Widget.WIDTH - 6, Widget.HEIGHT - 4, Color.WHITE.getRGB());
         
         if (expanded) {
             int offsetY = Widget.HEIGHT + 2;
@@ -87,8 +87,8 @@ public class ModulePanel {
     }
     
     private boolean isHovered(double mouseX, double mouseY) {
-        return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 4 &&
-                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 1;
+        return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 6 &&
+                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 4;
     }
     
     private static int toRGBA(Color color) {

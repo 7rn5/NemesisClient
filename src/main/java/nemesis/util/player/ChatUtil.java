@@ -1,7 +1,7 @@
 package nemesis.util.player;
 
 import nemesis.NemesisClient;
-import nemesis.imixin.IChatHud;
+import nemesis.mixininterface.IChatHud;
 import net.minecraft.text.Text;
 import net.minecraft.text.Style;
 import net.minecraft.text.MutableText;
