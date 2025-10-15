@@ -3,6 +3,7 @@ package nemesis.impl.gui.panel;
 import nemesis.impl.gui.panel.CategoryPanel;
 import nemesis.impl.gui.widget.Widget;
 import nemesis.impl.module.Module;
+import nemesis.impl.module.client.Ui;
 import nemesis.settings.Setting;
 import nemesis.settings.impl.*;
 import net.minecraft.client.font.TextRenderer;
@@ -10,8 +11,9 @@ import net.minecraft.client.gui.DrawContext;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import java.awt.Color;
+
+import static nemesis.NemesisClient.moduleManager;
 
 public class ModulePanel {
     private final Module module;
@@ -31,29 +33,36 @@ public class ModulePanel {
         }
     }
     
+    private boolean textShadow() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.textShadow.get();
+    }
+    
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        Color disabledColor = new Color(255, 255, 255, 80);
-        Color enabledColor = new Color(255, 255, 255, 150);
-        Color hoveredColor = new Color(255, 255, 255, 120);
-        Color white = new Color(255, 255, 255, 255);
-        
-        /*if (isHovered(mouseX, mouseY)) {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(hoveredColor));
-        }*/
+        int disabledColor = toRGBA(new Color(255, 255, 255, 80));
+        int enabledColor = toRGBA(new Color(255, 255, 255, 150));
+        int hoveredColor = toRGBA(new Color(255, 255, 255, 120));
+        int white = toRGBA(new Color(255, 255, 255, 255));
         
         if (module.isEnabled()) {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(enabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), enabledColor);
         } else {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(disabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), disabledColor);
         }
         
-        if (isHovered(mouseX, mouseY)) {
-            context.drawText(textRenderer, module.getName(), x, y, toRGBA(white), false);
+        if (textShadow()) {
+            if (isHovered(mouseX, mouseY)) {
+                context.drawTextWithShadow(textRenderer, module.getName(), x, y + 2, white);
+            } else {
+                context.drawTextWithShadow(textRenderer, module.getName(), x, y + 1, white);
+            }
         } else {
-            context.drawText(textRenderer, module.getName(), x, y - 1, toRGBA(white), false);
+            if (isHovered(mouseX, mouseY)) {
+                context.drawText(textRenderer, module.getName(), x, y + 1, white, false);
+            } else {
+                context.drawText(textRenderer, module.getName(), x, y, white, false);
+            }
         }
-        
-        //context.drawBorder(x - 2, y - 2, Widget.WIDTH - 6, Widget.HEIGHT - 4, Color.WHITE.getRGB());
         
         if (expanded) {
             int offsetY = Widget.HEIGHT + 2;
@@ -63,9 +72,9 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + 2;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4, getExpandedHeight() - 1, toRGBA(enabledColor));
+                context.drawBorder(x - 2, y + 13, Widget.WIDTH - 4, getExpandedHeight() - 17, enabledColor);
             } else {
-                context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4 + 17, getExpandedHeight() - 2 - 17, toRGBA(disabledColor));
+                context.drawBorder(x - 2, y + 13, Widget.WIDTH - 4, getExpandedHeight() - 17, disabledColor);
             }
         }
     }
@@ -112,7 +121,7 @@ public class ModulePanel {
     
     private boolean isHovered(double mouseX, double mouseY) {
         return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 6 &&
-                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 3;
+                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 4;
     }
     
     private static int toRGBA(Color color) {

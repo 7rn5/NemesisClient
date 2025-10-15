@@ -1,6 +1,7 @@
 package nemesis.impl.gui.widget.impl;
 
 import nemesis.impl.gui.widget.Widget;
+import nemesis.impl.module.client.Ui;
 import nemesis.settings.impl.ColorSetting;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
@@ -9,6 +10,8 @@ import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
 
+import static nemesis.NemesisClient.moduleManager;
+
 public class ColorWidget implements Widget<ColorSetting> {
     private static final int SLIDER_WIDTH = 100;
     private static final int BUTTON_WIDTH = 40;
@@ -16,6 +19,11 @@ public class ColorWidget implements Widget<ColorSetting> {
     
     private int x, y;
     private boolean rainbow = false;
+    
+    private boolean textShadow() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.textShadow.get();
+    }
     
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, ColorSetting setting, int x, int y, int mouseX, int mouseY) {
@@ -31,7 +39,11 @@ public class ColorWidget implements Widget<ColorSetting> {
         
         //rainbow toggle
         String rainbowText = "Rainbow: " + (rainbow ? "ON" : "OFF");
-        context.drawText(textRenderer, rainbowText, x, currentY + 3, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            context.drawTextWithShadow(textRenderer, rainbowText, x, currentY + 3, Color.WHITE.getRGB());
+        } else {
+            context.drawText(textRenderer, rainbowText, x, currentY + 3, Color.WHITE.getRGB(), false);
+        }
         currentY += widgetHeight + PADDING;
         
         //alpha slider
@@ -42,12 +54,20 @@ public class ColorWidget implements Widget<ColorSetting> {
         
         //copy button
         context.fill(x, currentY, x + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
-        context.drawText(textRenderer, "Copy", x + 8, currentY + 3, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            context.drawTextWithShadow(textRenderer, "Copy", x + 8, currentY + 3, Color.WHITE.getRGB());
+        } else {
+            context.drawText(textRenderer, "Copy", x + 8, currentY + 3, Color.WHITE.getRGB(), false);
+        }
         
         //paste button
         int pasteX = x + BUTTON_WIDTH + PADDING;
         context.fill(pasteX, currentY, pasteX + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
-        context.drawText(textRenderer, "Paste", pasteX + 6, currentY + 3, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            context.drawTextWithShadow(textRenderer, "Paste", pasteX + 6, currentY + 3, Color.WHITE.getRGB());
+        } else {
+            context.drawText(textRenderer, "Paste", pasteX + 6, currentY + 3, Color.WHITE.getRGB(), false);
+        }
     }
     
     @Override

@@ -1,14 +1,22 @@
 package nemesis.impl.gui.widget.impl;
 
 import nemesis.impl.gui.widget.Widget;
+import nemesis.impl.module.client.Ui;
 import nemesis.settings.impl.DoubleSetting;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 import java.awt.*;
 
+import static nemesis.NemesisClient.moduleManager;
+
 public class DoubleWidget implements Widget<DoubleSetting> {
     private boolean dragging = false;
+    
+    private boolean textShadow() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.textShadow.get();
+    }
 
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, DoubleSetting setting, int x, int y, int mouseX, int mouseY) {
@@ -17,7 +25,11 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         double max = setting.getMax();
         
         String valueStr = String.format("%.2f", value);
-        context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            context.drawTextWithShadow(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB());
+        } else {
+            context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), false);
+        }
         
         int sliderX = x + 5;
         int sliderY = y + widgetHeight / 2;

@@ -2,6 +2,7 @@ package nemesis.impl.gui.panel;
 
 import nemesis.impl.gui.widget.Widget;
 import nemesis.impl.module.Module;
+import nemesis.impl.module.client.Ui;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
@@ -42,12 +43,29 @@ public class CategoryPanel {
         return totalHeight;
     }
     
+    private boolean textShadow() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.textShadow.get();
+    }
+    
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
         //Color fillCategory = new Color(255, 255, 255, 170);
         //context.fill(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, toRGBA(fillCategory));
         
-        context.drawText(textRenderer, category.getName(), x, y, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            if (isHovered(mouseX, mouseY)) {
+                context.drawTextWithShadow(textRenderer, category.getName(), x, y + 1, Color.WHITE.getRGB());
+            } else {
+                context.drawTextWithShadow(textRenderer, category.getName(), x, y, Color.WHITE.getRGB());
+            }
+        } else {
+            if (isHovered(mouseX, mouseY)) {
+                context.drawText(textRenderer, category.getName(), x, y + 1, Color.WHITE.getRGB(), false);
+            } else {
+                context.drawText(textRenderer, category.getName(), x, y, Color.WHITE.getRGB(), false);
+            }
+        }
         
         if (expanded) {
             int offsetY = 16;

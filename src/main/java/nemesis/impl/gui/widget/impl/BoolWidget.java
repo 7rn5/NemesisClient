@@ -1,14 +1,22 @@
 package nemesis.impl.gui.widget.impl;
 
-import nemesis.settings.impl.BoolSetting;
 import nemesis.impl.gui.widget.Widget;
+import nemesis.impl.module.client.Ui;
+import nemesis.settings.impl.BoolSetting;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 import java.awt.Color;
 
+import static nemesis.NemesisClient.moduleManager;
+
 public class BoolWidget implements Widget<BoolSetting> {
     private int x, y;
+    
+    private boolean textShadow() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.textShadow.get();
+    }
     
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, BoolSetting setting, int x, int y, int mouseX, int mouseY) {
@@ -19,7 +27,11 @@ public class BoolWidget implements Widget<BoolSetting> {
         //outline
         context.drawBorder(x, y, widgetWidth, widgetHeight, Color.BLACK.getRGB());
         
-        context.drawText(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
+        if (textShadow()) {
+            context.drawTextWithShadow(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB());
+        } else {
+            context.drawText(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
+        }
         
         this.x = x;
         this.y = y;
