@@ -48,13 +48,13 @@ public class CategoryPanel {
                 if (panel.isExpanded()) {
                     offsetY += panel.getExpandedHeight();
                 } else {
-                    offsetY += Widget.HEIGHT + 2;
+                    offsetY += Widget.HEIGHT + 1;
                 }
             }
             
             int countModules = moduleManager.getCountCategory(category);
             int moduleHeight = 17;
-            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 2 + moduleHeight * countModules, Color.WHITE.getRGB());
+            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + moduleHeight * countModules, Color.WHITE.getRGB());
         }
     }
     

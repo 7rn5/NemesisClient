@@ -32,13 +32,18 @@ public class ModulePanel {
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        Color disabledColor = new Color(0, 0, 0, 0);
+        Color disabledColor = new Color(255, 255, 255, 80);
         Color enabledColor = new Color(255, 255, 255, 150);
+        Color hoveredColor = new Color(255, 255, 255, 120);
+        
+        if (isHovered(mouseX, mouseY)) {
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(hoveredColor));
+        }
         
         if (module.isEnabled()) {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), toRGBA(enabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(enabledColor));
         } else {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), toRGBA(disabledColor));
+            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(disabledColor));
         }
         
         context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
@@ -88,7 +93,7 @@ public class ModulePanel {
     
     private boolean isHovered(double mouseX, double mouseY) {
         return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 6 &&
-                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 4;
+                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 3;
     }
     
     private static int toRGBA(Color color) {
