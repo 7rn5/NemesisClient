@@ -35,10 +35,11 @@ public class ModulePanel {
         Color disabledColor = new Color(255, 255, 255, 80);
         Color enabledColor = new Color(255, 255, 255, 150);
         Color hoveredColor = new Color(255, 255, 255, 120);
+        Color white = new Color(255, 255, 255, 255);
         
-        if (isHovered(mouseX, mouseY)) {
+        /*if (isHovered(mouseX, mouseY)) {
             context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(hoveredColor));
-        }
+        }*/
         
         if (module.isEnabled()) {
             context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(enabledColor));
@@ -46,7 +47,11 @@ public class ModulePanel {
             context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 3), toRGBA(disabledColor));
         }
         
-        context.drawText(textRenderer, module.getName(), x, y, 0xFFFFFF, false);
+        if (isHovered(mouseX, mouseY)) {
+            context.drawText(textRenderer, module.getName(), x, y, toRGBA(white), false);
+        } else {
+            context.drawText(textRenderer, module.getName(), x, y - 1, toRGBA(white), false);
+        }
         
         //context.drawBorder(x - 2, y - 2, Widget.WIDTH - 6, Widget.HEIGHT - 4, Color.WHITE.getRGB());
         
@@ -57,7 +62,21 @@ public class ModulePanel {
                 panel.render(context, textRenderer, mouseX, mouseY);
                 offsetY += Widget.HEIGHT + 2;
             }
+            if (module.isEnabled()) {
+                context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4, getExpandedHeight() - 1, toRGBA(enabledColor));
+            } else {
+                context.drawBorder(x - 2, y - 2, Widget.WIDTH - 4 + 17, getExpandedHeight() - 2 - 17, toRGBA(disabledColor));
+            }
         }
+    }
+    
+    private void drawBorderNoTop(DrawContext context, int x, int y, int width, int height, int color) {
+        // 左の線
+        context.fill(x, y, x + 1, y + height, color);
+        // 下の線
+        context.fill(x, y + height - 1, x + width, y + height, color);
+        // 右の線
+        context.fill(x + width - 1, y, x + width, y + height, color);
     }
     
     public void setPosition(int x, int y) {

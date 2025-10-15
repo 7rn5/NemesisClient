@@ -16,6 +16,7 @@ import java.awt.Color;
 
 public class Ui extends Module {
     public final BoolSetting fill = addSetting(new BoolSetting("ModuleFill", true));
+    public final BoolSetting textShadow = addSetting(new BoolSetting("TextShadow", true));
     public final BoolSetting background = addSetting(new BoolSetting("BackGround", true));
     public final BoolSetting descriptions = addSetting(new BoolSetting("Descriptions", false));
     public final ColorSetting color = addSetting(new ColorSetting("Color", new Color(255, 255, 255), true));

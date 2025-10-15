@@ -13,12 +13,15 @@ public class ColorWidget implements Widget<ColorSetting> {
     private static final int SLIDER_WIDTH = 100;
     private static final int BUTTON_WIDTH = 40;
     private static final int BUTTON_HEIGHT = widgetHeight;
-    private int x, y;
     
+    private int x, y;
     private boolean rainbow = false;
     
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, ColorSetting setting, int x, int y, int mouseX, int mouseY) {
+        this.x = x;
+        this.y = y;
+
         int currentY = y;
         
         //color picker
@@ -26,9 +29,9 @@ public class ColorWidget implements Widget<ColorSetting> {
         context.drawBorder(x, currentY, SLIDER_WIDTH, widgetHeight, Color.BLACK.getRGB());
         currentY += widgetHeight + PADDING;
         
-        //toggle rainbow
+        //rainbow toggle
         String rainbowText = "Rainbow: " + (rainbow ? "ON" : "OFF");
-        context.drawText(textRenderer, rainbowText, x, currentY, Color.WHITE.getRGB(), false);
+        context.drawText(textRenderer, rainbowText, x, currentY + 3, Color.WHITE.getRGB(), false);
         currentY += widgetHeight + PADDING;
         
         //alpha slider
@@ -37,39 +40,59 @@ public class ColorWidget implements Widget<ColorSetting> {
         context.drawBorder(x, currentY, SLIDER_WIDTH, SLIDER_HEIGHT, Color.BLACK.getRGB());
         currentY += SLIDER_HEIGHT + PADDING;
         
-        //copy
+        //copy button
         context.fill(x, currentY, x + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
-        context.drawText(textRenderer, "Copy", x + 5, currentY + 3, Color.WHITE.getRGB(), false);
-        //paste
+        context.drawText(textRenderer, "Copy", x + 8, currentY + 3, Color.WHITE.getRGB(), false);
+        
+        //paste button
         int pasteX = x + BUTTON_WIDTH + PADDING;
         context.fill(pasteX, currentY, pasteX + BUTTON_WIDTH, currentY + BUTTON_HEIGHT, new Color(80, 80, 80).getRGB());
-        context.drawText(textRenderer, "Paste", pasteX + 5, currentY + 3, Color.WHITE.getRGB(), false);
-        
-        this.x = x;
-        this.y = y;
+        context.drawText(textRenderer, "Paste", pasteX + 6, currentY + 3, Color.WHITE.getRGB(), false);
     }
     
     @Override
     public boolean mouseClicked(ColorSetting setting, double mouseX, double mouseY, int button) {
-        // left click
-        /*if (button == 0) {
-            //copy
-            if (mouseX >= 0 && mouseX <= BUTTON_WIDTH) {
+        //let click
+        if (button == 0) {
+            int currentY = y + (widgetHeight + PADDING) * 2 + SLIDER_HEIGHT + PADDING;
+            
+            //copy button
+            if (mouseX >= x && mouseX <= x + BUTTON_WIDTH &&
+                mouseY >= currentY && mouseY <= currentY + BUTTON_HEIGHT) {
                 copyToClipboard(setting.get());
                 return true;
             }
-            //paste
-            if (mouseX >= BUTTON_WIDTH + PADDING && mouseX <= BUTTON_WIDTH * 2 + PADDING) {
+            
+            //paste button
+            int pasteX = x + BUTTON_WIDTH + PADDING;
+            if (mouseX >= pasteX && mouseX <= pasteX + BUTTON_WIDTH &&
+                mouseY >= currentY && mouseY <= currentY + BUTTON_HEIGHT) {
                 Color pasted = pasteFromClipboard();
                 if (pasted != null) setting.set(pasted);
                 return true;
             }
-        }*/
+            
+            //rainbow button
+            int rainbowY = y + widgetHeight + PADDING;
+            if (mouseY >= rainbowY && mouseY <= rainbowY + widgetHeight &&
+                mouseX >= x && mouseX <= x + SLIDER_WIDTH) {
+                rainbow = !rainbow;
+                return true;
+            }
+        }
         return false;
     }
     
     @Override
-    public void mouseDragged(ColorSetting setting, double mouseX) {}
+    public void mouseDragged(ColorSetting setting, double mouseX) {
+        int sliderY = y + (widgetHeight + PADDING) * 2;
+        if (mouseX >= x && mouseX <= x + SLIDER_WIDTH) {
+            int alpha = (int) (((mouseX - x) / SLIDER_WIDTH) * 255);
+            alpha = Math.max(0, Math.min(255, alpha));
+            Color c = setting.get();
+            setting.set(new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha));
+        }
+    }
     
     private void copyToClipboard(Color color) {
         String rgb = color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + color.getAlpha();

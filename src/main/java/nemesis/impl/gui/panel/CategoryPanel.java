@@ -16,8 +16,7 @@ public class CategoryPanel {
     private boolean expanded = true;
     private final List<ModulePanel> modulePanels = new ArrayList<>();
     private final List<Module> modules;
-    private int x, y;
-    public static int offsetY;
+    private int x, y, offsetY;
     
     public CategoryPanel(Module.Category category, List<Module> modules, int x, int y) {
         this.category = category;
@@ -30,6 +29,17 @@ public class CategoryPanel {
             modulePanels.add(new ModulePanel(module, x, y + offsetY));
             offsetY += 17;
         }
+    }
+    
+    private int calculateTotalHeight() {
+        int countModules = moduleManager.getCountCategory(category);
+        int totalHeight = 17 * countModules;
+        for (ModulePanel panel : modulePanels) {
+            if (panel.isExpanded()) {
+                totalHeight += panel.getExpandedHeight() - 17;
+            }
+        }
+        return totalHeight;
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
@@ -52,9 +62,11 @@ public class CategoryPanel {
                 }
             }
             
-            int countModules = moduleManager.getCountCategory(category);
-            int moduleHeight = 17;
-            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + moduleHeight * countModules, Color.WHITE.getRGB());
+            //int countModules = moduleManager.getCountCategory(category);
+            //int moduleHeight = 17;
+            //context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + moduleHeight * countModules, Color.WHITE.getRGB());
+            
+            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
         }
     }
     
