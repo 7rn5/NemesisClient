@@ -29,7 +29,7 @@ public class ModulePanel {
         int offsetY = 28;
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
-            offsetY += Widget.HEIGHT + 3;
+            offsetY += Widget.HEIGHT + 1;
         }
     }
     
@@ -72,9 +72,9 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + 2;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 17, enabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 16, enabledColor);
             } else {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 17, disabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 16, disabledColor);
             }
         }
     }

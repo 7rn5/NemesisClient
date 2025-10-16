@@ -44,9 +44,9 @@ public class ColorWidget implements Widget<ColorSetting> {
                 context.drawText(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB(), false);
             }
             
-            //Color viewer 12かける12の幅1で枠つくってその中に色入れる
-            context.drawBorder(x + widgetWidth - 14, y + 2, 12, 12, Color.BLACK.getRGB());
-            context.fill(x + widgetHeight - 13, y + 3, x + widgetWidth - 3, y + widgetHeight - 3, setting.getRGB());
+            //Color viewer
+            context.drawBorder(x + widgetWidth - 14, y + 2, widgetHeight - 4, widgetHeight - 4, Color.BLACK.getRGB());
+            context.fill(x + widgetWidth - 13, y + 3, x + widgetWidth - 3, y + widgetHeight - 3, setting.getRGB());
         }
         
         /*
