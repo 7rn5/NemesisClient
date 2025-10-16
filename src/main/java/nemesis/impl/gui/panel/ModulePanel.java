@@ -72,20 +72,11 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + 2;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y + 13, Widget.WIDTH - 4, getExpandedHeight() - 17, enabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 17, enabledColor);
             } else {
-                context.drawBorder(x - 2, y + 13, Widget.WIDTH - 4, getExpandedHeight() - 17, disabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 17, disabledColor);
             }
         }
-    }
-    
-    private void drawBorderNoTop(DrawContext context, int x, int y, int width, int height, int color) {
-        // 左の線
-        context.fill(x, y, x + 1, y + height, color);
-        // 下の線
-        context.fill(x, y + height - 1, x + width, y + height, color);
-        // 右の線
-        context.fill(x + width - 1, y, x + width, y + height, color);
     }
     
     public void setPosition(int x, int y) {

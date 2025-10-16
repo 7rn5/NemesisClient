@@ -19,7 +19,7 @@ public class Ui extends Module {
     public final BoolSetting textShadow = addSetting(new BoolSetting("TextShadow", true));
     public final BoolSetting background = addSetting(new BoolSetting("BackGround", true));
     public final BoolSetting descriptions = addSetting(new BoolSetting("Descriptions", false));
-    public final ColorSetting color = addSetting(new ColorSetting("Color", new Color(255, 255, 255), true));
+    public final ColorSetting color = addSetting(new ColorSetting("Color", new Color(170, 170, 170, 255), true));
     //public final DoubleSetting testDouble = addSetting(new DoubleSetting("Double", 20, 50, 30));
     //public final EnumSetting<Mode> mode = addSetting(new EnumSetting<>("Enum", Mode.aiueo));
     

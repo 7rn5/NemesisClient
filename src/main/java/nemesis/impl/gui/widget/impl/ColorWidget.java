@@ -19,6 +19,7 @@ public class ColorWidget implements Widget<ColorSetting> {
     
     private int x, y;
     private boolean rainbow = false;
+    private boolean expanded = false;
     
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
@@ -32,6 +33,23 @@ public class ColorWidget implements Widget<ColorSetting> {
 
         int currentY = y;
         
+        if (!expanded) {
+            //Base outline
+            context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
+            
+            //Title
+            if (textShadow()) {
+                context.drawTextWithShadow(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB());
+            } else {
+                context.drawText(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB(), false);
+            }
+            
+            //Color viewer 12かける12の幅1で枠つくってその中に色入れる
+            context.drawBorder(x + widgetWidth - 14, y + 2, 12, 12, Color.BLACK.getRGB());
+            context.fill(x + widgetHeight - 13, y + 3, x + widgetWidth - 3, y + widgetHeight - 3, setting.getRGB());
+        }
+        
+        /*
         //color picker
         context.fill(x, currentY, x + SLIDER_WIDTH, currentY + widgetHeight, setting.get().getRGB());
         context.drawBorder(x, currentY, SLIDER_WIDTH, widgetHeight, Color.BLACK.getRGB());
@@ -68,12 +86,13 @@ public class ColorWidget implements Widget<ColorSetting> {
         } else {
             context.drawText(textRenderer, "Paste", pasteX + 6, currentY + 3, Color.WHITE.getRGB(), false);
         }
+        */
     }
     
     @Override
     public boolean mouseClicked(ColorSetting setting, double mouseX, double mouseY, int button) {
         //let click
-        if (button == 0) {
+        /*if (button == 0) {
             int currentY = y + (widgetHeight + PADDING) * 2 + SLIDER_HEIGHT + PADDING;
             
             //copy button
@@ -99,12 +118,13 @@ public class ColorWidget implements Widget<ColorSetting> {
                 rainbow = !rainbow;
                 return true;
             }
-        }
+        }*/
         return false;
     }
     
     @Override
     public void mouseDragged(ColorSetting setting, double mouseX) {
+        /*
         int sliderY = y + (widgetHeight + PADDING) * 2;
         if (mouseX >= x && mouseX <= x + SLIDER_WIDTH) {
             int alpha = (int) (((mouseX - x) / SLIDER_WIDTH) * 255);
@@ -112,6 +132,7 @@ public class ColorWidget implements Widget<ColorSetting> {
             Color c = setting.get();
             setting.set(new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha));
         }
+        */
     }
     
     private void copyToClipboard(Color color) {
