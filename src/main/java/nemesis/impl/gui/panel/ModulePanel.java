@@ -26,7 +26,7 @@ public class ModulePanel {
         this.x = x;
         this.y = y;
         
-        int offsetY = 28;
+        int offsetY = 22;
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
             offsetY += Widget.HEIGHT + 1;
@@ -50,18 +50,16 @@ public class ModulePanel {
             context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), disabledColor);
         }
         
-        if (textShadow()) {
-            if (isHovered(mouseX, mouseY)) {
-                context.drawTextWithShadow(textRenderer, module.getName(), x, y + 2, white);
-            } else {
-                context.drawTextWithShadow(textRenderer, module.getName(), x, y + 1, white);
-            }
+        if (isHovered(mouseX, mouseY)) {
+            context.getMatrices().push();
+            context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 2, white, textShadow());
+            context.getMatrices().pop();
         } else {
-            if (isHovered(mouseX, mouseY)) {
-                context.drawText(textRenderer, module.getName(), x, y + 1, white, false);
-            } else {
-                context.drawText(textRenderer, module.getName(), x, y, white, false);
-            }
+            context.getMatrices().push();
+            context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
+            context .getMatrices().pop();
         }
         
         if (expanded) {
@@ -72,9 +70,9 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + 2;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 16, enabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, enabledColor);
             } else {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - 16, disabledColor);
+                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, disabledColor);
             }
         }
     }

@@ -38,11 +38,7 @@ public class ColorWidget implements Widget<ColorSetting> {
             context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
             
             //Title
-            if (textShadow()) {
-                context.drawTextWithShadow(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB());
-            } else {
-                context.drawText(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB(), false);
-            }
+            context.drawText(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB(), textShadow());
             
             //Color viewer
             context.drawBorder(x + widgetWidth - 14, y + 2, widgetHeight - 4, widgetHeight - 4, Color.BLACK.getRGB());

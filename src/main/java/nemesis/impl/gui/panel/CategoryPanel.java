@@ -25,19 +25,19 @@ public class CategoryPanel {
         this.y = y;
         this.modules = modules != null ? modules : new ArrayList<>();
         
-        offsetY = 16;
+        offsetY = 12;
         for (Module module : this.modules) {
             modulePanels.add(new ModulePanel(module, x, y + offsetY));
-            offsetY += 17;
+            offsetY += 14;
         }
     }
     
     private int calculateTotalHeight() {
         int countModules = moduleManager.getCountCategory(category);
-        int totalHeight = 17 * countModules;
+        int totalHeight = Widget.HEIGHT * countModules;
         for (ModulePanel panel : modulePanels) {
             if (panel.isExpanded()) {
-                totalHeight += panel.getExpandedHeight() - 17;
+                totalHeight += panel.getExpandedHeight() - Widget.HEIGHT;
             }
         }
         return totalHeight;
@@ -49,22 +49,21 @@ public class CategoryPanel {
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
-        context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
-        //Color fillCategory = new Color(255, 255, 255, 170);
-        //context.fill(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, toRGBA(fillCategory));
+        int enabledColor = toRGBA(new Color(255, 255, 255, 150));
         
-        if (textShadow()) {
-            if (isHovered(mouseX, mouseY)) {
-                context.drawTextWithShadow(textRenderer, category.getName(), x, y + 1, Color.WHITE.getRGB());
-            } else {
-                context.drawTextWithShadow(textRenderer, category.getName(), x, y, Color.WHITE.getRGB());
-            }
+        context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
+        context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT - 4, enabledColor);
+        
+        if (isHovered(mouseX, mouseY)) {
+            context.getMatrices().push();
+            context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+            context.drawText(textRenderer, category.getName(), (int) (x / 0.9f), (int) (y + 1 / 0.9f), Color.WHITE.getRGB(), textShadow());
+            context.getMatrices().pop();
         } else {
-            if (isHovered(mouseX, mouseY)) {
-                context.drawText(textRenderer, category.getName(), x, y + 1, Color.WHITE.getRGB(), false);
-            } else {
-                context.drawText(textRenderer, category.getName(), x, y, Color.WHITE.getRGB(), false);
-            }
+            context.getMatrices().push();
+            context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+            context.drawText(textRenderer, category.getName(), (int) (x / 0.9f), (int) (y / 0.9f), Color.WHITE.getRGB(), textShadow());
+            context.getMatrices().pop();
         }
         
         if (expanded) {
@@ -76,15 +75,10 @@ public class CategoryPanel {
                 if (panel.isExpanded()) {
                     offsetY += panel.getExpandedHeight();
                 } else {
-                    offsetY += Widget.HEIGHT + 1;
+                    offsetY += Widget.HEIGHT;
                 }
             }
-            
-            //int countModules = moduleManager.getCountCategory(category);
-            //int moduleHeight = 17;
-            //context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + moduleHeight * countModules, Color.WHITE.getRGB());
-            
-            context.drawBorder(x - 4, y + 11, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
+            context.drawBorder(x - 4, y + 9, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
         }
     }
     

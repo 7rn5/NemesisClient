@@ -22,11 +22,7 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, EnumSetting<T> setting, int x, int y, int mouseX, int mouseY) {
         //now
-        if (textShadow()) {
-            context.drawTextWithShadow(textRenderer, setting.getName() + ": " + setting.get().name(), x, y, Color.WHITE.getRGB());
-        } else {
-            context.drawText(textRenderer, setting.getName() + ": " + setting.get().name(), x, y, Color.WHITE.getRGB(), false);
-        }
+        context.drawText(textRenderer, setting.getName() + ": " + setting.get().name(), x, y, Color.WHITE.getRGB(), textShadow());
         
         //list
         if (expanded) {

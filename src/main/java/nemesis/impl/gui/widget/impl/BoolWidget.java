@@ -27,11 +27,7 @@ public class BoolWidget implements Widget<BoolSetting> {
         //outline
         context.drawBorder(x, y, widgetWidth, widgetHeight, Color.BLACK.getRGB());
         
-        if (textShadow()) {
-            context.drawTextWithShadow(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB());
-        } else {
-            context.drawText(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), false);
-        }
+        context.drawText(textRenderer, setting.getName(), x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), textShadow());
         
         this.x = x;
         this.y = y;

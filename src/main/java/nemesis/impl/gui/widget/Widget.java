@@ -5,7 +5,7 @@ import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 
 public interface Widget<T extends Setting<?>> {
-    int HEIGHT = 16;
+    int HEIGHT = 14;
     int WIDTH = 100;
     int PADDING = 2;
     int SLIDER_HEIGHT = 6;
