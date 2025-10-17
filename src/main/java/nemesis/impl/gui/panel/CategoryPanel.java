@@ -51,8 +51,8 @@ public class CategoryPanel {
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         int enabledColor = toRGBA(new Color(255, 255, 255, 150));
         
-        context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT, Color.WHITE.getRGB());
-        context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT - 4, enabledColor);
+        context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT + 4, Color.WHITE.getRGB());
+        context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT, enabledColor);
         
         if (isHovered(mouseX, mouseY)) {
             context.getMatrices().push();
@@ -96,8 +96,8 @@ public class CategoryPanel {
     }
     
     private boolean isHovered(double mouseX, double mouseY) {
-        return mouseX >= this.x - 4 && mouseX <= this.x + Widget.WIDTH - 4&&
-                mouseY >= this.y - 4 && mouseY <= this.y + Widget.HEIGHT - 4;
+        return mouseX >= this.x - 4 && mouseX <= this.x + Widget.WIDTH &&
+                mouseY >= this.y - 4 && mouseY <= this.y + Widget.HEIGHT + 4;
     }
     
     private static int toRGBA(Color color) {

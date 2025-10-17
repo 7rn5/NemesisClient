@@ -29,7 +29,7 @@ public class ModulePanel {
         int offsetY = 22;
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
-            offsetY += Widget.HEIGHT + 1;
+            offsetY += Widget.HEIGHT + 5;
         }
     }
     
@@ -45,20 +45,20 @@ public class ModulePanel {
         int white = toRGBA(new Color(255, 255, 255, 255));
         
         if (module.isEnabled()) {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), enabledColor);
+            context.fill(x - 2, y - 4, x + Widget.WIDTH - 6, y + Widget.HEIGHT, enabledColor);
         } else {
-            context.fill(x - 2, y - 2, x + (Widget.WIDTH - 6), y + (Widget.HEIGHT - 4), disabledColor);
+            context.fill(x - 2, y - 4, x + Widget.WIDTH - 6, y + Widget.HEIGHT, disabledColor);
         }
         
         if (isHovered(mouseX, mouseY)) {
             context.getMatrices().push();
             context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 2, white, textShadow());
+            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
             context.getMatrices().pop();
         } else {
             context.getMatrices().push();
             context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
+            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f), white, textShadow());
             context .getMatrices().pop();
         }
         
