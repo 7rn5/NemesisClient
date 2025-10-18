@@ -1,5 +1,7 @@
 package nemesis.impl.module;
 
+import nemesis.event.bus.Subscribe;
+import nemesis.event.KeyEvent;
 import nemesis.impl.module.Module;
 import nemesis.impl.module.client.*;
 import nemesis.impl.module.combat.*;
@@ -12,33 +14,37 @@ import nemesis.impl.module.visual.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static nemesis.NemesisClient.eventHandler;
+
 public class ModuleManager {
-    public static final ModuleManager INSTANCE = new ModuleManager();
     public final List<Module> modules = new ArrayList<>();
     private final Map<Module.Category, List<Module>> categoryMap = new HashMap<>();
 
     public void init() {
         //Combat
-          add(new Offhand());
+            add(new Offhand());
         //Misc
-          add(new Announcer());
-          add(new SplashText());
+            add(new Announcer());
+            add(new SplashText());
         //Visual
-          add(new NoRender());
+            add(new NoRender());
         //Movement
-          add(new NoJumpDelay());
-          add(new NoSlow());
-          add(new Sprint());
-          add(new Velocity());
+            add(new NoJumpDelay());
+            add(new NoSlow());
+            add(new Sprint());
+            add(new Velocity());
         //Player
-          add(new SpeedMine());
+            add(new SpeedMine());
         //Exploit
-          add(new Multitask());
+            add(new Multitask());
         //Client
-          add(new AntiCheat());
-          add(new ColorManagement());
-          add(new Notification());
-          add(new Ui());
+            add(new AntiCheat());
+            add(new ColorManagement());
+            add(new Notification());
+            add(new Ui());
+        
+        //register event
+            eventHandler.subscribe(this);
     }
 
     public void add(Module module) {
@@ -92,5 +98,16 @@ public class ModuleManager {
     public int getCountCategory(Module.Category category) {
         List<Module> targetCategory = categoryMap.getOrDefault(category, new ArrayList<>());
         return targetCategory.size();
+    }
+    
+    @Subscribe
+    public void onKeyPressed(KeyEvent event) {
+        int key = event.getKey();
+        if (key >= 0) return;
+        modules.forEach(module -> {
+            if (module.getBindKey() == key) {
+                module.toggle();
+            }
+        });
     }
 }

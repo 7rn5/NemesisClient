@@ -7,19 +7,17 @@ import nemesis.impl.module.client.Ui;
 import nemesis.impl.module.ModuleManager;
 import nemesis.impl.gui.ClickGui;
 import nemesis.manager.*;
-
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.lwjgl.glfw.GLFW;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NemesisClient implements ModInitializer, ClientModInitializer {
     public static String CLIENT_ID = "nemesis";
@@ -29,6 +27,7 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
     public static String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
     public static MinecraftClient mc;
     public static KeyBinding openGuiKey;
+    private static final List<KeyBinding> allKeys = new ArrayList<>();
 
     //managers
     public static ConfigManager configManager;
@@ -72,16 +71,19 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         //register event
         eventHandler.subscribe(this);
         
-        openGuiKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.nemesis.open_gui", // 翻訳キー（langファイルで名前変更可能）
-                InputUtil.Type.KEYSYM, // キータイプ（キーボード、マウスなど）
-                GLFW.GLFW_KEY_RIGHT_SHIFT, // デフォルトのキー
-                "Nemesis" // カテゴリ（langで表示名設定）
-        ));
+        //KeyBind
+        openGuiKey = new KeyBinding(
+            "key.nemesis.open_gui",
+            InputUtil.Type.KEYSYM,
+            GLFW.GLFW_KEY_RIGHT_SHIFT,
+            "Nemesis"
+        );
+        allKeys.add(openGuiKey);
+        mc.options.allKeys = allKeys.toArray(new KeyBinding[0]);
         
-        ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.saveConfig();
-        });
+        }));
     }
     
     @Subscribe

@@ -91,6 +91,10 @@ public abstract class Module {
         setEnabled(!enabled);
     }
     
+    public int getBindKey() {
+        return this.Bind.get();
+    }
+    
     public List<Setting<?>> getSettings() {
         return settings;
     }
@@ -122,6 +126,4 @@ public abstract class Module {
             return Arrays.asList(values());
         }
     }
-    
-    
 }
