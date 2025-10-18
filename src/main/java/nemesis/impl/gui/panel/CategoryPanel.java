@@ -25,16 +25,16 @@ public class CategoryPanel {
         this.y = y;
         this.modules = modules != null ? modules : new ArrayList<>();
         
-        offsetY = 12;
+        offsetY = 0;
         for (Module module : this.modules) {
-            modulePanels.add(new ModulePanel(module, x, y + offsetY));
-            offsetY += 14;
+            modulePanels.add(new ModulePanel(this, module, x, y + offsetY));
+            offsetY += Widget.HEIGHT;
         }
     }
     
     private int calculateTotalHeight() {
         int countModules = moduleManager.getCountCategory(category);
-        int totalHeight = Widget.HEIGHT * countModules;
+        int totalHeight = (Widget.HEIGHT + 1) * countModules;
         for (ModulePanel panel : modulePanels) {
             if (panel.isExpanded()) {
                 totalHeight += panel.getExpandedHeight() - Widget.HEIGHT;
@@ -67,19 +67,23 @@ public class CategoryPanel {
         }
         
         if (expanded) {
-            int offsetY = 16;
+            int expandedOffsetY = 13;
             for (ModulePanel panel : modulePanels) {
-                panel.setPosition(x, y + offsetY);
+                panel.setPosition(x, y + expandedOffsetY);
                 panel.render(context, textRenderer, mouseX, mouseY);
                 
                 if (panel.isExpanded()) {
-                    offsetY += panel.getExpandedHeight();
+                    expandedOffsetY += panel.getExpandedHeight();
                 } else {
-                    offsetY += Widget.HEIGHT;
+                    expandedOffsetY += Widget.HEIGHT + 1;
                 }
             }
-            context.drawBorder(x - 4, y + 9, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
+            context.drawBorder(x - 4, y + 10, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
         }
+    }
+    
+    public boolean isExpanded() {
+        return expanded;
     }
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
@@ -96,8 +100,8 @@ public class CategoryPanel {
     }
     
     private boolean isHovered(double mouseX, double mouseY) {
-        return mouseX >= this.x - 4 && mouseX <= this.x + Widget.WIDTH &&
-                mouseY >= this.y - 4 && mouseY <= this.y + Widget.HEIGHT + 4;
+        return mouseX >= this.x - 4 && mouseX <= this.x + Widget.WIDTH - 4 &&
+                mouseY >= this.y - 4 && mouseY <= this.y + Widget.HEIGHT;
     }
     
     private static int toRGBA(Color color) {

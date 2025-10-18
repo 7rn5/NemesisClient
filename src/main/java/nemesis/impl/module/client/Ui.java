@@ -1,7 +1,5 @@
 package nemesis.impl.module.client;
 
-import nemesis.event.bus.Subscribe;
-import nemesis.event.ClickGuiCloseEvent;
 import nemesis.impl.gui.ClickGui;
 import nemesis.impl.module.Module;
 import nemesis.settings.impl.BoolSetting;

@@ -20,13 +20,15 @@ public class ModulePanel {
     private final List<SettingPanel<?>> settingPanels = new ArrayList<>();
     private int x, y;
     private boolean expanded = false;
+    private CategoryPanel category;
     
-    public ModulePanel(Module module, int x, int y) {
+    public ModulePanel(CategoryPanel category, Module module, int x, int y) {
+        this.category = category;
         this.module = module;
         this.x = x;
         this.y = y;
         
-        int offsetY = 22;
+        int offsetY = 18;
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
             offsetY += Widget.HEIGHT + 5;
@@ -45,9 +47,9 @@ public class ModulePanel {
         int white = toRGBA(new Color(255, 255, 255, 255));
         
         if (module.isEnabled()) {
-            context.fill(x - 2, y - 4, x + Widget.WIDTH - 6, y + Widget.HEIGHT, enabledColor);
+            context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, enabledColor);
         } else {
-            context.fill(x - 2, y - 4, x + Widget.WIDTH - 6, y + Widget.HEIGHT, disabledColor);
+            context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, disabledColor);
         }
         
         if (isHovered(mouseX, mouseY)) {
@@ -70,9 +72,9 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + 2;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, enabledColor);
+                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, enabledColor);
             } else {
-                context.drawBorder(x - 2, y + 12, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, disabledColor);
+                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT, disabledColor);
             }
         }
     }
@@ -92,7 +94,7 @@ public class ModulePanel {
     }
     
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        if (button == 0 && isHovered(mouseX, mouseY) && module.canDisable()) {
+        if (button == 0 && isHovered(mouseX, mouseY) && module.canDisable() && category.isExpanded()) {
             module.toggle();
             return true;
         }
@@ -110,7 +112,7 @@ public class ModulePanel {
     
     private boolean isHovered(double mouseX, double mouseY) {
         return mouseX >= this.x - 2 && mouseX <= this.x + Widget.WIDTH - 6 &&
-                mouseY >= this.y - 2 && mouseY <= this.y + Widget.HEIGHT - 4;
+                mouseY >= this.y - 1 && mouseY <= this.y + Widget.HEIGHT - 1;
     }
     
     private static int toRGBA(Color color) {
