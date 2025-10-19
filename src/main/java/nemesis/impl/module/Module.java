@@ -8,6 +8,8 @@ import nemesis.util.player.ChatUtil;
 
 import java.util.*;
 
+import static nemesis.NemesisClient.eventHandler;
+
 public abstract class Module {
     private final String name, description;
     private Category category;

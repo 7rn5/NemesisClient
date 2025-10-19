@@ -20,6 +20,15 @@ public class NoSlow extends Module {
         eventHandler.subscribe(this);
     }
     
+    @Override
+    public void onDisabled() {
+        set(mc.options.forwardKey, false);
+        set(mc.options.backKey, false);
+        set(mc.options.leftKey, false);
+        set(mc.options.rightKey, false);
+        set(mc.options.jumpKey, false);
+    }
+    
     @Subscribe
     public void onTick(TickEvent event) {
         if (invMove.get() && CheckUtil.checkScreen()) {
@@ -29,5 +38,9 @@ public class NoSlow extends Module {
                 binding.setPressed(InputUtil.isKeyPressed(handle, ((KeyBindingAccessor) binding).getBoundKey().getCode()));
             }
         }
+    }
+    
+    private void set(KeyBinding bind, boolean pressed) {
+        bind.setPressed(pressed);
     }
 }

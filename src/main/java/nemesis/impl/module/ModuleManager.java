@@ -62,8 +62,9 @@ public class ModuleManager {
     
     public <T extends Module> T get(Class<T> clazz) {
         for (Module module : this.modules) {
-            if (!clazz.isInstance(module)) continue;
-            return (T) module;
+            if (clazz.isInstance(module)) {
+                return clazz.cast(module);
+            }
         }
         return null;
     }
@@ -102,11 +103,11 @@ public class ModuleManager {
     @Subscribe
     public void onKeyPressed(KeyEvent event) {
         int key = event.getKey();
-        if (key >= 0) return;
-        modules.forEach(module -> {
+        if (key < 0) return;
+        for (Module module : modules) {
             if (module.getBindKey() == key) {
                 module.toggle();
             }
-        });
+        }
     }
 }
