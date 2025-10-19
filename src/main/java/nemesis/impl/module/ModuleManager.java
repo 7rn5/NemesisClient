@@ -91,7 +91,6 @@ public class ModuleManager {
     }
     
     public List<Module> getByCategory(Module.Category category) {
-        //return categoryMap.get(category);
         return categoryMap.getOrDefault(category, new ArrayList<>());
     }
     

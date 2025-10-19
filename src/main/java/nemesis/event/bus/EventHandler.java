@@ -1,5 +1,7 @@
 package nemesis.event.bus;
 
+import nemesis.impl.module.Module;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,8 @@ public class EventHandler {
         if (listeners == null) return;
 
         for (Listener listener : listeners) {
+            Object owner = listener.getOwner();
+            if (owner instanceof Module module && !module.isEnabled()) continue;
             listener.invoke(event);
         }
     }

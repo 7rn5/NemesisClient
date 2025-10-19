@@ -78,8 +78,6 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
             GLFW.GLFW_KEY_RIGHT_SHIFT,
             "Nemesis"
         );
-        allKeys.add(openGuiKey);
-        mc.options.allKeys = allKeys.toArray(new KeyBinding[0]);
         
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.saveConfig();

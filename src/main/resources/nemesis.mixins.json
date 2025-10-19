@@ -7,7 +7,7 @@
 	    "ChatHudLineVisibleMixin",
 	    "ChatHudMixin",
 	    "GameOptionsMixin",
-	    "KeyBindingMixin",
+	    "KeyBindingAccessor",
 	    "MinecraftClientMixin",
 	    "SplashTextResourceSupplierMixin",
 	    "TitleScreenMixin"

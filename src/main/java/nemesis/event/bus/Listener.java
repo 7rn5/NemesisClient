@@ -5,13 +5,16 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.util.function.Consumer;
+import java.lang.reflect.Method;
 
 public class Listener {
     private final Class<?> subscriber;
+    private final Object owner;
     private Consumer<Object> consumer;
     private final int priority;
     
-    public Listener(Class<?> klass, Object object, java.lang.reflect.Method method) {
+    public Listener(Class<?> klass, Object object, Method method) {
+        this.owner = object;
         subscriber = method.getParameters()[0].getType();
         priority = method.getAnnotation(Subscribe.class).priority();
         
@@ -31,6 +34,10 @@ public class Listener {
         } catch (Throwable throwable) {
             throwable.printStackTrace();
         }
+    }
+    
+    public Object getOwner() {
+        return owner;
     }
     
     public Class<?> getSubscriber() {
