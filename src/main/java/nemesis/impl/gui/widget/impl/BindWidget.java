@@ -33,7 +33,10 @@ public class BindWidget implements Widget<BindSetting> {
         //draw text
         String keyName = setting.getKeyName();
         String label = setting.getName() + ": " + (listening ? "Press a key..." : keyName);
+        context.getMatrices().push();
+        context.getMatrices().scale(0.9f, 0.9f, 1.0f);
         context.drawText(textRenderer, label, x + PADDING, y + (widgetHeight - textRenderer.fontHeight) / 2, Color.WHITE.getRGB(), textShadow());
+        context.getMatrices().pop();
         
         this.x = x;
         this.y = y;

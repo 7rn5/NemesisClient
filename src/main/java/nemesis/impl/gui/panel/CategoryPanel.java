@@ -48,17 +48,29 @@ public class CategoryPanel {
         return uiModule.textShadow.get();
     }
     
+    private boolean bounce() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.bounce.get();
+    }
+    
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         int enabledColor = toRGBA(new Color(255, 255, 255, 150));
         
         context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT + 4, Color.WHITE.getRGB());
         context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT, enabledColor);
         
-        if (isHovered(mouseX, mouseY)) {
-            context.getMatrices().push();
-            context.getMatrices().scale(0.9f, 0.9f, 1.0f);
-            context.drawText(textRenderer, category.getName(), (int) (x / 0.9f), (int) (y + 1 / 0.9f), Color.WHITE.getRGB(), textShadow());
-            context.getMatrices().pop();
+        if (bounce()) {
+            if (isHovered(mouseX, mouseY)) {
+                context.getMatrices().push();
+                context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+                context.drawText(textRenderer, category.getName(), (int) (x / 0.9f), (int) (y / 0.9f) + 1, Color.WHITE.getRGB(), textShadow());
+                context.getMatrices().pop();
+            } else {
+                context.getMatrices().push();
+                context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+                context.drawText(textRenderer, category.getName(), (int) (x / 0.9f), (int) (y / 0.9f), Color.WHITE.getRGB(), textShadow());
+                context.getMatrices().pop();
+            }
         } else {
             context.getMatrices().push();
             context.getMatrices().scale(0.9f, 0.9f, 1.0f);

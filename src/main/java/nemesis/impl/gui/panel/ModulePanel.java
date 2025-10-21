@@ -40,6 +40,11 @@ public class ModulePanel {
         return uiModule.textShadow.get();
     }
     
+    private boolean bounce() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.bounce.get();
+    }
+    
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         int disabledColor = toRGBA(new Color(255, 255, 255, 80));
         int enabledColor = toRGBA(new Color(255, 255, 255, 150));
@@ -52,15 +57,22 @@ public class ModulePanel {
             context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, disabledColor);
         }
         
-        if (isHovered(mouseX, mouseY)) {
-            context.getMatrices().push();
-            context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
-            context.getMatrices().pop();
+        if (bounce()) {
+            if (isHovered(mouseX, mouseY)) {
+                context.getMatrices().push();
+                context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+                context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 2, white, textShadow());
+                context.getMatrices().pop();
+            } else {
+                context.getMatrices().push();
+                context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+                context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
+                context .getMatrices().pop();
+            }
         } else {
             context.getMatrices().push();
             context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f), white, textShadow());
+            context.drawText(textRenderer, module.getName(), (int) (x / 0.8f), (int) (y / 0.8f) + 1, white, textShadow());
             context .getMatrices().pop();
         }
         

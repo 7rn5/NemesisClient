@@ -38,7 +38,10 @@ public class ColorWidget implements Widget<ColorSetting> {
             context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
             
             //Title
+            context.getMatrices().push();
+            context.getMatrices().scale(0.9f, 0.9f, 1.0f);
             context.drawText(textRenderer, setting.getName(), x, y + 3, Color.WHITE.getRGB(), textShadow());
+            context.getMatrices().pop();
             
             //Color viewer
             context.drawBorder(x + widgetWidth - 14, y + 2, widgetHeight - 4, widgetHeight - 4, Color.BLACK.getRGB());

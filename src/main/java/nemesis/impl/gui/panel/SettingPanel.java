@@ -35,7 +35,7 @@ public class SettingPanel<T extends Setting<?>> {
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
         if (widget != null) {
-            widget.render(context, textRenderer, setting, x, y - 4, mouseX, mouseY);
+            widget.render(context, textRenderer, setting, x, y, mouseX, mouseY);
         }
     }
     

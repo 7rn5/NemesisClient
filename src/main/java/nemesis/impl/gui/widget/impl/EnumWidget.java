@@ -29,11 +29,10 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
             List<T> values = setting.getValues();
             int offsetY = widgetHeight;
             for (T val : values) {
-                if (textShadow()) {
-                    context.drawTextWithShadow(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB());
-                } else {
-                    context.drawText(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB(), false);
-                }
+                context.getMatrices().push();
+                context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+                context.drawText(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB(), textShadow());
+                context.getMatrices().pop();
                 offsetY += widgetHeight;
             }
             //ouline

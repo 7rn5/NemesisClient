@@ -25,11 +25,10 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         double max = setting.getMax();
         
         String valueStr = String.format("%.2f", value);
-        if (textShadow()) {
-            context.drawTextWithShadow(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB());
-        } else {
-            context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), false);
-        }
+        context.getMatrices().push();
+        context.getMatrices().scale(0.9f, 0.9f, 1.0f);
+        context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), textShadow());
+        context.getMatrices().pop();
         
         int sliderX = x + 5;
         int sliderY = y + widgetHeight / 2;
