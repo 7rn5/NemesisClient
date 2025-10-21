@@ -22,7 +22,10 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
     @Override
     public void render(DrawContext context, TextRenderer textRenderer, EnumSetting<T> setting, int x, int y, int mouseX, int mouseY) {
         //now
-        context.drawText(textRenderer, setting.getName() + ": " + setting.get().name(), x, y, Color.WHITE.getRGB(), textShadow());
+        context.getMatrices().push();
+        context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+        context.drawText(textRenderer, setting.getName() + ": " + setting.get().name(), (int) (x / 0.8f), (int) (y / 0.8f), Color.WHITE.getRGB(), textShadow());
+        context.getMatrices().pop();
         
         //list
         if (expanded) {
@@ -30,8 +33,8 @@ public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
             int offsetY = widgetHeight;
             for (T val : values) {
                 context.getMatrices().push();
-                context.getMatrices().scale(0.9f, 0.9f, 1.0f);
-                context.drawText(textRenderer, "- " + val.name(), x + 4, y + offsetY, Color.LIGHT_GRAY.getRGB(), textShadow());
+                context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+                context.drawText(textRenderer, "- " + val.name(), (int) ((x + 4) / 0.8f), (int) ((y + offsetY) / 0.8f), Color.LIGHT_GRAY.getRGB(), textShadow());
                 context.getMatrices().pop();
                 offsetY += widgetHeight;
             }

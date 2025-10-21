@@ -31,7 +31,7 @@ public class ModulePanel {
         int offsetY = 18;
         for (Setting<?> setting : module.getSettings()) {
             settingPanels.add(new SettingPanel<>(setting, x, y + offsetY));
-            offsetY += Widget.HEIGHT + 5;
+            offsetY += Widget.HEIGHT + 1;
         }
     }
     

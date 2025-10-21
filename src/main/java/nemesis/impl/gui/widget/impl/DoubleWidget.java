@@ -26,8 +26,8 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         
         String valueStr = String.format("%.2f", value);
         context.getMatrices().push();
-        context.getMatrices().scale(0.9f, 0.9f, 1.0f);
-        context.drawText(textRenderer, valueStr, x, y + 2, Color.WHITE.getRGB(), textShadow());
+        context.getMatrices().scale(0.8f, 0.8f, 1.0f);
+        context.drawText(textRenderer, valueStr, (int) (x / 0.8f), (int) ((y + 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
         context.getMatrices().pop();
         
         int sliderX = x + 5;

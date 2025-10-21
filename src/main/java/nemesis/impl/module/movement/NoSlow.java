@@ -38,6 +38,14 @@ public class NoSlow extends Module {
                 binding.setPressed(InputUtil.isKeyPressed(handle, ((KeyBindingAccessor) binding).getBoundKey().getCode()));
             }
         }
+        if (!invMove.get() && mc.currentScreen != null) {
+            set(mc.options.forwardKey, false);
+            set(mc.options.backKey, false);
+            set(mc.options.leftKey, false);
+            set(mc.options.rightKey, false);
+            set(mc.options.jumpKey, false);
+            return;
+        }
     }
     
     private void set(KeyBinding bind, boolean pressed) {
