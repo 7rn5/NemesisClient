@@ -2,6 +2,7 @@ plugins {
     id 'java'
 	  id 'fabric-loom' version '1.11-SNAPSHOT'
 	  id 'maven-publish'
+	  id 'com.github.gmazzo.buildconfig' version '5.5.1'
 }
 
 version = project.mod_version
@@ -27,8 +28,21 @@ dependencies {
 	  minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	  mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	  modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	  //modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
+
+def getCommitHash = { ->
+	def gitProcess = 'git rev-parse HEAD'.execute()
+	gitProcess.waitFor()
+	return gitProcess.text.trim().take(10)
+}
+
+buildConfig {
+    className("BuildConfig")
+    packageName(group)
+    buildConfigField 'String', 'CLIENT_VERSION', "\"${project.mod_version}\""
+    buildConfigField 'String', 'GIT_HASH', "\"${getCommitHash()}\""
+}
+
 
 processResources {
 	  inputs.property "version", project.version

@@ -21,9 +21,10 @@ import java.util.List;
 
 public class NemesisClient implements ModInitializer, ClientModInitializer {
     public static String CLIENT_ID = "nemesis";
-    public static String CLIENT_STATUS = "Beta"; //Beta or Release
-    public static String CLIENT_VERSION = "0.0.8";
+    public static String CLIENT_STATUS = getClientStatus();
+    public static String CLIENT_VERSION = BuildConfig.CLIENT_VERSION;
     public static String CLIENT_NAME = "NemesisClient";
+    public static String GIT_HASH = BuildConfig.GIT_HASH;
     public static String LOG_PREFIX = "[" + CLIENT_NAME + "] ";
     public static MinecraftClient mc;
     public static KeyBinding openGuiKey;
@@ -42,16 +43,7 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         LOGGER.info(LOG_PREFIX + "Welcome to NemesisClient");
 
         //Nemesis
-        //LOGGER.info(LOG_PREFIX + "");
-        //LOGGER.info(LOG_PREFIX + "##    ##  ########  ##     ##  ########   ######   ####   ######  ");
-        //LOGGER.info(LOG_PREFIX + "###   ##  ##        ###   ###  ##        ##    ##   ##   ##    ## ");
-        //LOGGER.info(LOG_PREFIX + "####  ##  ##        #### ####  ##        ##         ##   ##       ");
-        //LOGGER.info(LOG_PREFIX + "## ## ##  ######    ## ### ##  ######     ######    ##    ######  ");
-        //LOGGER.info(LOG_PREFIX + "##  ####  ##        ##     ##  ##              ##   ##         ## ");
-        //LOGGER.info(LOG_PREFIX + "##   ###  ##        ##     ##  ##        ##    ##   ##   ##    ## ");
-        //LOGGER.info(LOG_PREFIX + "##    ##  ########  ##     ##  ########   ######   ####   ######  ");
-        //LOGGER.info(LOG_PREFIX + "");
-        LOGGER.info(LOG_PREFIX + "    " + CLIENT_NAME + " v" +CLIENT_VERSION + " (" + CLIENT_STATUS + ")");
+        LOGGER.info(LOG_PREFIX + "    " + CLIENT_NAME + " v" + CLIENT_VERSION + " (" + CLIENT_STATUS + ")");
     }
 
     @Override
@@ -89,6 +81,17 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         while (openGuiKey.wasPressed()) {
             mc.setScreen(new ClickGui());
             moduleManager.get(Ui.class).enable();
+        }
+    }
+    
+    public static String getClientStatus() {
+        try {
+            String[] parts = CLIENT_VERSION.split("\\.");
+            if (parts.length < 3) return "Unknown";
+            int patch = Integer.parseInt(parts[2]);
+            return (patch == 0) ? "Release" : "Beta";
+        } catch  (Exception e) {
+            return "Unknown";
         }
     }
 }
