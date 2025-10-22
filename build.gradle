@@ -30,19 +30,21 @@ dependencies {
 	  modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
-def getCommitHash = { ->
-	def gitProcess = 'git rev-parse HEAD'.execute()
-	gitProcess.waitFor()
-	return gitProcess.text.trim().take(10)
+def getHash() {
+    final def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine "git", "rev-parse", "HEAD"
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
 }
 
 buildConfig {
     className("BuildConfig")
     packageName(group)
-    buildConfigField 'String', 'CLIENT_VERSION', "\"${project.mod_version}\""
-    buildConfigField 'String', 'GIT_HASH', "\"${getCommitHash()}\""
+    buildConfigField(String, "CLIENT_VERSION", project.mod_version)
+    buildConfigField(String, "GIT_HASH", "${getHash()}")
 }
-
 
 processResources {
 	  inputs.property "version", project.version

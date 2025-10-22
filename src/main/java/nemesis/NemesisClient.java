@@ -21,7 +21,7 @@ import java.util.List;
 
 public class NemesisClient implements ModInitializer, ClientModInitializer {
     public static String CLIENT_ID = "nemesis";
-    public static String CLIENT_STATUS = getClientStatus();
+    public static String CLIENT_STATUS = "Unknown";
     public static String CLIENT_VERSION = BuildConfig.CLIENT_VERSION;
     public static String CLIENT_NAME = "NemesisClient";
     public static String GIT_HASH = BuildConfig.GIT_HASH;
@@ -74,6 +74,8 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.saveConfig();
         }));
+        
+        setClientStatus();
     }
     
     @Subscribe
@@ -84,14 +86,16 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         }
     }
     
-    public static String getClientStatus() {
+    private void setClientStatus() {
         try {
             String[] parts = CLIENT_VERSION.split("\\.");
-            if (parts.length < 3) return "Unknown";
+            if (parts.length < 3) return;
             int patch = Integer.parseInt(parts[2]);
-            return (patch == 0) ? "Release" : "Beta";
-        } catch  (Exception e) {
-            return "Unknown";
-        }
+            if (patch == 0) {
+                CLIENT_STATUS = "Release";
+            } else {
+                CLIENT_STATUS = "Beta";
+            }
+        } catch (Exception e) {}
     }
 }

@@ -40,6 +40,7 @@ public class ModuleManager {
         //Client
             add(new AntiCheat());
             add(new ColorManagement());
+            add(new Hud());
             add(new Notification());
             add(new Ui());
         

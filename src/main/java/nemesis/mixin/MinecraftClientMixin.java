@@ -12,7 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
     @Inject(method = "tick", at = @At("HEAD"))
-    private void tick(CallbackInfo info) {
-        NemesisClient.eventHandler.post(new TickEvent());
+    private void tick(CallbackInfo ci) {
+        TickEvent event = new TickEvent();
+        NemesisClient.eventHandler.post(event);
+        if (event.isCancelled()) ci.cancel();
     }
 }

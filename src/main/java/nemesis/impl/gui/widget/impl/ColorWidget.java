@@ -40,10 +40,10 @@ public class ColorWidget implements Widget<ColorSetting> {
             //Title
             context.getMatrices().push();
             context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-            context.drawText(textRenderer, setting.getName(), (int) (x / 0.8f), (int) ((y + 3) / 0.8f), Color.WHITE.getRGB(), textShadow());
+            context.drawText(textRenderer, setting.getName(), (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
             context.getMatrices().pop();
             
-            //Color viewer
+            //Color viewer widgetWidth = 10
             context.drawBorder(x + widgetWidth - 14, y + 2, widgetHeight - 4, widgetHeight - 4, Color.BLACK.getRGB());
             context.fill(x + widgetWidth - 13, y + 3, x + widgetWidth - 3, y + widgetHeight - 3, setting.getRGB());
         }
