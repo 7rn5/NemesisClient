@@ -1,16 +1,15 @@
 package nemesis.settings.impl;
 
-//import com.google.gson.JsonElement;
-//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 
 public class DoubleSetting extends Setting<Double> {
-    private final double min, max;
+    private final double min;
+    private final double max;
     
-    public DoubleSetting(String name, double defaultValue, double min, double max) {
-        super(name, defaultValue);
-        this.min = min;
-        this.max = max;
+    protected DoubleSetting(Builder builder) {
+        super(builder);
+        this.min = builder.min;
+        this.max = builder.max;
     }
     
     public double getMin() {
@@ -23,18 +22,31 @@ public class DoubleSetting extends Setting<Double> {
     
     @Override
     public void set(Double value) {
-        this.value = Math.max(min, Math.min(max, value));
+        if (value == null) return;
+        this.value = clamp(value);
+        if (onChanged != null) onChanged.accept(this.value);
     }
     
-    //@Override
-    //public void fromJson(JsonElement json) {
-    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
-    //        set(json.getAsDouble());
-    //    }
-    //}
+    private double clamp(double value) {
+        return Math.max(min, Math.min(max, value));
+    }
     
-    //@Override
-    //public JsonElement toJson() {
-    //    return new JsonPrimitive(value);
-    //}
+    public static class Builder extends Setting.Builder<Double, Builder> {
+        private double min = 0.0;
+        private double max = 1.0;
+        
+        public Builder min(double min) {
+            this.min = min;
+            return this;
+        }
+        
+        public Builder max(double max) {
+            this.max = max;
+            return this;
+        }
+        
+        public DoubleSetting build() {
+            return new DoubleSetting(this);
+        }
+    }
 }

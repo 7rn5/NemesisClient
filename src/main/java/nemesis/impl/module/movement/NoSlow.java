@@ -13,7 +13,11 @@ import static nemesis.NemesisClient.mc;
 import static nemesis.NemesisClient.eventHandler;
 
 public class NoSlow extends Module {
-    private final BoolSetting invMove = addSetting(new BoolSetting("InventoryMove", true));
+    private final BoolSetting invMove = addSetting(new BoolSetting.Builder()
+        .name("InventoryMove")
+        .defaultValue(true)
+        .build()
+    );
     
     public NoSlow() {
         super("NoSlow", "Disable/custom some slow item/block", Category.Movement);

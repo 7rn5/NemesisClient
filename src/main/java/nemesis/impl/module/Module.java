@@ -24,8 +24,11 @@ public abstract class Module {
         this.description = description;
         this.category = category;
         
-        this.Bind = new BindSetting("Bind", BindSetting.KEY_NONE);
-        this.settings.add(Bind);
+        this.Bind = addSetting(((BindSetting.Builder) new BindSetting.Builder()
+            .name("Bind")
+            .defaultValue(BindSetting.KEY_NONE))
+            .build()
+        );
     }
     
     public Module(String name, String description, Category category, boolean antiDisable) {
@@ -34,8 +37,11 @@ public abstract class Module {
         this.category = category;
         this.antiDisable = antiDisable;
         
-        this.Bind = new BindSetting("Bind", BindSetting.KEY_NONE);
-        this.settings.add(Bind);
+        this.Bind = addSetting(((BindSetting.Builder) new BindSetting.Builder()
+            .name("Bind")
+            .defaultValue(BindSetting.KEY_NONE))
+            .build()
+        );
     }
     
     public String getName() {
@@ -57,10 +63,12 @@ public abstract class Module {
                 onEnabled();
                 int id = getName().hashCode();
                 ChatUtil.info("§a[+]§f" + getName(), id);
+                eventHandler.subscribe(this);
             } else {
                 onDisabled();
                 int id = getName().hashCode();
                 ChatUtil.info("§c[-]§f" + getName(), id);
+                eventHandler.unsubscribe(this);
             }
         }
     }
@@ -101,9 +109,9 @@ public abstract class Module {
         return settings;
     }
     
-    public <T extends Setting<?>> T addSetting(T setting) {
+    public <T extends Setting<?>> T addSetting(Setting<?> setting) {
         settings.add(setting);
-        return setting;
+        return (T) setting;
     }
     
     public enum Category {

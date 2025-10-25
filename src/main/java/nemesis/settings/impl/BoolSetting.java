@@ -1,27 +1,29 @@
 package nemesis.settings.impl;
 
-//import com.google.gson.JsonElement;
-//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 
 public class BoolSetting extends Setting<Boolean> {
-    public BoolSetting(String name, boolean defaultValue) {
-        super(name, defaultValue);
+    private BoolSetting(Builder builder) {
+        super(builder);
+    }
+    
+    @Override
+    public void set(Boolean value) {
+        super.set(value != null ? value : false);
     }
     
     public void toggle() {
-        set(!value);
+        set(!get());
     }
     
-    //@Override
-    //public void fromJson(JsonElement json) {
-    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isBoolean()) {
-    //        this.value = json.getAsBoolean();
-    //    }
-    //}
-
-    //@Override
-    //public JsonElement toJson() {
-    //    return new JsonPrimitive(value);
-    //}
+    public static class Builder extends Setting.Builder<Boolean, Builder> {
+        public Builder() {
+            defaultValue(false);
+        }
+        
+        @Override
+        public BoolSetting build() {
+            return new BoolSetting(this);
+        }
+    }
 }

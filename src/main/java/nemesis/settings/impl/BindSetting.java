@@ -1,7 +1,5 @@
 package nemesis.settings.impl;
 
-//import com.google.gson.JsonElement;
-//import com.google.gson.JsonPrimitive;
 import nemesis.settings.Setting;
 import org.lwjgl.glfw.GLFW;
 
@@ -9,21 +7,31 @@ import static nemesis.NemesisClient.mc;
 
 public class BindSetting extends Setting<Integer> {
     public static final int KEY_NONE = -1;
-    private boolean wasPressedLastTick = false;
-    private boolean holdMode = false;
+    private boolean holdMode;
+    private boolean wasPressedLastTick;
     
-    public BindSetting(String name, int defaultValue) {
-        super(name, defaultValue);
+    private BindSetting(Builder builder) {
+        super(builder);
+        this.holdMode = builder.holdMode;
     }
     
     public boolean isPressed() {
-        if (value == KEY_NONE) return false;
-        return GLFW.glfwGetKey(mc.getWindow().getHandle(), value) == GLFW.GLFW_PRESS;
+        if (get() == KEY_NONE) return false;
+        long handle = mc.getWindow().getHandle();
+        return GLFW.glfwGetKey(handle, get()) == GLFW.GLFW_PRESS;
+    }
+    
+    public boolean isJustPressed() {
+        boolean pressed = isPressed();
+        boolean justPressed = pressed && !wasPressedLastTick;
+        wasPressedLastTick = pressed;
+        return justPressed;
     }
     
     public String getKeyName() {
-        if (value == KEY_NONE) return "none";
-        return GLFW.glfwGetKeyName(value, 0);
+        if (get() == KEY_NONE) return "none";
+        String name = GLFW.glfwGetKeyName(get(), 0);
+        return name != null ? name.toUpperCase() : ("KEY_" + get());
     }
     
     public boolean isHoldMode() {
@@ -34,30 +42,25 @@ public class BindSetting extends Setting<Integer> {
         this.holdMode = holdMode;
     }
     
-    public boolean wasPressedLastTick() {
-        return wasPressedLastTick;
+    public void resetLastState() {
+        this.wasPressedLastTick = false;
     }
     
-    public void setWasPressedLastTick(boolean val) {
-        this.wasPressedLastTick = val;
+    public static class Builder extends Setting.Builder<Integer, Builder> {
+        private boolean holdMode = false;
+        
+        public Builder() {
+            defaultValue(KEY_NONE);
+        }
+        
+        public Builder holdMode(boolean holdMode) {
+            this.holdMode = holdMode;
+            return this;
+        }
+        
+        @Override
+        public BindSetting build() {
+            return new BindSetting(this);
+        }
     }
-    
-    @Override
-    public void set(Integer value) {
-        this.value = value;
-    }
-    
-    //@Override
-    //public JsonElement toJson() {
-    //    return new JsonPrimitive(value);
-    //}
-    
-    //@Override
-    //public void fromJson(JsonElement json) {
-    //    if (json.isJsonPrimitive() && json.getAsJsonPrimitive().isNumber()) {
-    //        this.value = json.getAsInt();
-    //    } else {
-    //        this.value = KEY_NONE;
-    //    }
-    //}
 }

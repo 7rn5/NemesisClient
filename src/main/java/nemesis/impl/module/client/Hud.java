@@ -16,8 +16,18 @@ import static nemesis.NemesisClient.GIT_HASH;
 import java.awt.Color;
 
 public class Hud extends Module {
-    private final BoolSetting waterMark = addSetting(new BoolSetting("WaterMark", true));
-    private final ColorSetting waterMarkColor = addSetting(new ColorSetting("WaterMarkColor", new Color(170, 170, 170), false));
+    private final BoolSetting waterMark = addSetting(new BoolSetting.Builder()
+        .name("waterMark")
+        .defaultValue(true)
+        .build()
+    );
+    
+    public final ColorSetting waterMarkColor = addSetting(new ColorSetting.Builder()
+        .name("WaterMarkColor")
+        .defaultValue(new Color(170, 170, 170))
+        .alpha(false)
+        .build()
+    );
     
     public Hud() {
         super("Hud", "Make your gaming experience more comfortable!", Category.Client);
