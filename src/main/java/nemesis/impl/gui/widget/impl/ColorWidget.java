@@ -35,7 +35,7 @@ public class ColorWidget implements Widget<ColorSetting> {
         
         if (!expanded) {
             //Base outline
-            context.fill(x, y, x + widgetWidth - 1, y + widgetHeight - 1, Color.WHITE.getRGB());
+            context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
             
             //Title
             context.getMatrices().push();
@@ -43,9 +43,11 @@ public class ColorWidget implements Widget<ColorSetting> {
             context.drawText(textRenderer, setting.getName(), (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
             context.getMatrices().pop();
             
-            //Color viewer widgetWidth = 10
-            context.drawBorder(x + widgetWidth - 14, y + 2, widgetHeight - 4, widgetHeight - 4, Color.BLACK.getRGB());
-            context.fill(x + widgetWidth - 13, y + 3, x + widgetWidth - 3, y + widgetHeight - 3, setting.getRGB());
+            //Color viewer widgetWidth = 92 widgetHeight = 10 padding = 1
+            int nullColor = toRGBA(new Color(0, 0, 0, 0));
+            context.drawBorder(x + widgetWidth - 11, y + 1, widgetWidth - 1, widgetHeight - 1, Color.BLACK.getRGB());
+            context.fill(x + widgetHeight - 10, y + 2, x + widgetWidth - 2, y + widgetHeight - 2, nullColor);
+            context.fill(x + widgetHeight - 10, y + 2, x + widgetWidth - 2, y + widgetHeight - 2, setting.getRGB());
         }
         
         /*
@@ -90,6 +92,10 @@ public class ColorWidget implements Widget<ColorSetting> {
     
     @Override
     public boolean mouseClicked(ColorSetting setting, double mouseX, double mouseY, int button) {
+        if (button == 1 && isHoveredButton(mouseX, mouseY)) {
+            expanded = !expanded;
+            return true;
+        }
         //let click
         /*if (button == 0) {
             int currentY = y + (widgetHeight + PADDING) * 2 + SLIDER_HEIGHT + PADDING;
@@ -134,6 +140,11 @@ public class ColorWidget implements Widget<ColorSetting> {
         */
     }
     
+    private boolean isHoveredButton(double mouseX, double mouseY) {
+        return mouseX >= this.x && mouseX <= this.x + widgetHeight - 1 &&
+                mouseY >= this.y && mouseY <= this.y + widgetHeight - 1;
+    }
+    
     private void copyToClipboard(Color color) {
         String rgb = color.getRed() + "," + color.getGreen() + "," + color.getBlue() + "," + color.getAlpha();
         StringSelection selection = new StringSelection(rgb);
@@ -153,5 +164,12 @@ public class ColorWidget implements Widget<ColorSetting> {
             }
         } catch (UnsupportedFlavorException | IOException | NumberFormatException ignored) {}
         return null;
+    }
+    
+    private static int toRGBA(Color color) {
+        return (color.getAlpha() << 24) |
+                (color.getRed() << 16) |
+                (color.getGreen() << 8) |
+                color.getBlue();
     }
 }

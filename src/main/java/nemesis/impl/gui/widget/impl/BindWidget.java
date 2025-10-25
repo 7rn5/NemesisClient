@@ -27,9 +27,6 @@ public class BindWidget implements Widget<BindSetting> {
         int bgColor = listening ? new Color(50, 50, 150, 150).getRGB() : new Color(50, 50, 50, 150).getRGB();
         context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
         
-        //outline
-        context.drawBorder(x, y, widgetWidth, widgetHeight, Color.BLACK.getRGB());
-        
         //draw text
         String keyName = setting.getKeyName();
         String label = setting.getName() + ": " + (listening ? "Press a key..." : keyName);

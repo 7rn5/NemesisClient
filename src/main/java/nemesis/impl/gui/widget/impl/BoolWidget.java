@@ -24,9 +24,6 @@ public class BoolWidget implements Widget<BoolSetting> {
         int bgColor = setting.get() ? new Color(0, 200, 0, 150).getRGB() : new Color(200, 0, 0, 150).getRGB();
         context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
         
-        //outline
-        context.drawBorder(x, y, widgetWidth, widgetHeight, Color.BLACK.getRGB());
-        
         //bool name
         context.getMatrices().push();
         context.getMatrices().scale(0.8f, 0.8f, 1.0f);
