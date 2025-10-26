@@ -1,0 +1,11 @@
+{
+  "providers": [
+    {
+      "type": "bitmap",
+      "file": "nemesis:font/chat_icon.png",
+      "height": 128,
+      "ascent": 128,
+      "chars": ["\ue001"]
+    }
+  ]
+}

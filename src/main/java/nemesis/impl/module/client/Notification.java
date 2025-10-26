@@ -21,8 +21,8 @@ public class Notification extends Module {
         .build()
     );
     
-    public final BoolSetting indicatorIcon = addSetting(new BoolSetting.Builder()
-        .name("IndicatorIcon")
+    public final BoolSetting icon = addSetting(new BoolSetting.Builder()
+        .name("Icon")
         .defaultValue(true)
         .build()
     );
