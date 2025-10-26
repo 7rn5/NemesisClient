@@ -46,16 +46,24 @@ public class ChatUtil {
             .append(getNemesisPrefix())
             .append(Text.literal(text));
         
-        ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0);
+        if (messageIndicator()) {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0, "chat-icon.png");
+        } else {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0);
+        }
     }
     
-    /*public static void clientSendMessage(String text, Color color) {
+    public static void clientSendMessage(String text, Color color) {
         if (mc.world == null) return;
         Text message = Text.empty()
             .append(getNemesisPrefix())
             .append(Text.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color.getRGB()))));
         
-        ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0);
+        if (messageIndicator()) {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0, "chat-icon.png");
+        } else {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0);
+        }
     }
     
     public static void clientSendMessage(String text, int id) {
@@ -64,7 +72,11 @@ public class ChatUtil {
             .append(getNemesisPrefix())
             .append(Text.literal(text));
         
-        ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id);
+        if (messageIndicator()) {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id, "chat-icon.png");
+        } else {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id);
+        }
     }
     
     public static void clientSendMessage(String text, int id, Color color) {
@@ -73,34 +85,38 @@ public class ChatUtil {
             .append(getNemesisPrefix())
             .append(Text.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color.getRGB()))));
         
-        ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id);
-    }*/
+        if (messageIndicator()) {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id, "chat-icon.png");
+        } else {
+            ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id);
+        }
+    }
     
     //info
     public static void info(String message, int id) {
-        //clientSendMessage(message, id);
+        clientSendMessage(message, id);
     }
     
     public static void info(String message, int id, Color color) {
-        //clientSendMessage(message, id, color);
+        clientSendMessage(message, id, color);
     }
     
     //warning
     public static void warning(String message, int id) {
-        //clientSendMessage("§e[!]" + message, id);
+        clientSendMessage("§e[!]" + message, id);
     }
     
     public static void warning(String message, int id, Color color) {
-        //clientSendMessage("§e[!]" + message, id, color);
+        clientSendMessage("§e[!]" + message, id, color);
     }
     
     //error
     public static void error(String message, int id) {
-        //clientSendMessage("§c[☓]" + message, id);
+        clientSendMessage("§c[☓]" + message, id);
     }
     
     public static void error(String message, int id, Color color) {
-        //clientSendMessage("§c[☓]" + message, id, color);
+        clientSendMessage("§c[☓]" + message, id, color);
     }
     
     //server send message 
