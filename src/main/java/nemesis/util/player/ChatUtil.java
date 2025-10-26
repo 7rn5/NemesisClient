@@ -10,16 +10,26 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.gui.hud.MessageIndicator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
 
 import nemesis.impl.module.client.Notification;
 import static nemesis.NemesisClient.moduleManager;
 import static nemesis.NemesisClient.mc;
 
 import java.awt.Color;
+import java.util.Optional;
 
 public class ChatUtil {
     private static Notification getNotificationModule() {
         return moduleManager.get(Notification.class);
+    }
+    
+    private static boolean messageIndicator() {
+        if (getNotificationModule().isEnabled()) {
+            return getNotificationModule().indicatorIcon.get();
+        } else {
+            return false;
+        }
     }
     
     public static Text getNemesisPrefix() {
@@ -31,6 +41,7 @@ public class ChatUtil {
     
     public static void clientSendMessage(String text) {
         if (mc.world == null) return;
+        
         Text message = Text.empty()
             .append(getNemesisPrefix())
             .append(Text.literal(text));
@@ -38,7 +49,7 @@ public class ChatUtil {
         ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, 0);
     }
     
-    public static void clientSendMessage(String text, Color color) {
+    /*public static void clientSendMessage(String text, Color color) {
         if (mc.world == null) return;
         Text message = Text.empty()
             .append(getNemesisPrefix())
@@ -63,33 +74,33 @@ public class ChatUtil {
             .append(Text.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromRgb(color.getRGB()))));
         
         ((IChatHud) mc.inGameHud.getChatHud()).nemesis$add(message, id);
-    }
+    }*/
     
     //info
     public static void info(String message, int id) {
-        clientSendMessage(message, id);
+        //clientSendMessage(message, id);
     }
     
     public static void info(String message, int id, Color color) {
-        clientSendMessage(message, id, color);
+        //clientSendMessage(message, id, color);
     }
     
     //warning
     public static void warning(String message, int id) {
-        clientSendMessage("§e[!]" + message, id);
+        //clientSendMessage("§e[!]" + message, id);
     }
     
     public static void warning(String message, int id, Color color) {
-        clientSendMessage("§e[!]" + message, id, color);
+        //clientSendMessage("§e[!]" + message, id, color);
     }
     
     //error
     public static void error(String message, int id) {
-        clientSendMessage("§c[☓]" + message, id);
+        //clientSendMessage("§c[☓]" + message, id);
     }
     
     public static void error(String message, int id, Color color) {
-        clientSendMessage("§c[☓]" + message, id, color);
+        //clientSendMessage("§c[☓]" + message, id, color);
     }
     
     //server send message 
