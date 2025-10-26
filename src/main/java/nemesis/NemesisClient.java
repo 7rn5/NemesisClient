@@ -39,6 +39,8 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitialize() {
+        setClientStatus();
+        
         //log
         LOGGER.info(LOG_PREFIX + "Welcome to NemesisClient");
 
@@ -74,8 +76,6 @@ public class NemesisClient implements ModInitializer, ClientModInitializer {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             configManager.saveConfig();
         }));
-        
-        setClientStatus();
     }
     
     @Subscribe

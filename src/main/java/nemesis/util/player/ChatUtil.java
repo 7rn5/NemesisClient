@@ -32,8 +32,13 @@ public class ChatUtil {
         }
     }
     
-    private static String getIcon() {
-        return icon() ? "\ue001" : "";
+    private static Text getIcon() {
+        String icon = icon() ? "\ue001" : "";
+        if (icon == "") {
+            return Text.empty();
+        } else {
+            return Text.literal(icon).setStyle(Style.EMPTY.withFont(Identifier.of("nemesis", "nemesis_font")));
+        }
     }
     
     public static Text getNemesisPrefix() {
