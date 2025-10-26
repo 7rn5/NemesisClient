@@ -33,11 +33,11 @@ public class ChatHudLineVisibleMixin implements IChatHudLine {
         return this.nemesis$indicatorPath;
     }
 
-    @Unique
+    @Override
     public void nemesis$renderIndicator(DrawContext context, int x, int y) {
         if (nemesis$indicatorPath == null || nemesis$indicatorPath.isEmpty()) return;
-
+        
         Identifier indicator = Identifier.of("nemesis", "image/" + nemesis$indicatorPath);
-        context.drawTexture(RenderLayer::getGuiTextured, indicator, x - 9, y, 0.0F, 0.0F, 9, 9, 128, 128);
+        context.drawTexture(RenderLayer::getGuiTextured, indicator, x, y, 0.0F, 0.0F, 9, 9, 128, 128);
     }
 }
