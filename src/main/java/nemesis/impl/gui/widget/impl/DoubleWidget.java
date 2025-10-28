@@ -13,6 +13,11 @@ import static nemesis.NemesisClient.moduleManager;
 public class DoubleWidget implements Widget<DoubleSetting> {
     private boolean dragging = false;
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -36,7 +41,9 @@ public class DoubleWidget implements Widget<DoubleSetting> {
         int sliderHeight = 2;
         
         //background
-        context.fill(sliderX, sliderY, sliderX + sliderWidth, sliderY + sliderHeight, new Color(80, 80, 80).getRGB());
+        if (fill()) {
+            context.fill(sliderX, sliderY, sliderX + sliderWidth, sliderY + sliderHeight, new Color(80, 80, 80).getRGB());
+        }
         
         //now int
         double normalized = (value - min) / (max - min);

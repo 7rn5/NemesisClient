@@ -43,6 +43,11 @@ public class CategoryPanel {
         return totalHeight;
     }
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -57,7 +62,9 @@ public class CategoryPanel {
         int enabledColor = toRGBA(new Color(255, 255, 255, 150));
         
         context.drawBorder(x - 4, y - 4, Widget.WIDTH, Widget.HEIGHT + 4, Color.WHITE.getRGB());
-        context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT, enabledColor);
+        if (fill()) {
+            context.fill(x - 4, y - 4, x + Widget.WIDTH - 4, y + Widget.HEIGHT, enabledColor);
+        }
         
         if (bounce()) {
             if (isHovered(mouseX, mouseY)) {

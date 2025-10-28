@@ -21,6 +21,11 @@ public class ColorWidget implements Widget<ColorSetting> {
     private boolean rainbow = false;
     private boolean expanded = false;
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -35,7 +40,9 @@ public class ColorWidget implements Widget<ColorSetting> {
         
         if (!expanded) {
             //Base outline
-            context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
+            if (fill()) {
+                context.fill(x, y, x + widgetWidth, y + widgetHeight, Color.WHITE.getRGB());
+            }
             
             //Title
             context.getMatrices().push();
@@ -43,11 +50,14 @@ public class ColorWidget implements Widget<ColorSetting> {
             context.drawText(textRenderer, setting.getName(), (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
             context.getMatrices().pop();
             
-            //Color viewer widgetWidth = 92 widgetHeight = 10 padding = 1
+            //Color viewer
             int nullColor = toRGBA(new Color(0, 0, 0, 0));
-            context.drawBorder(x + widgetWidth - 11, y + 1, widgetWidth - 1, widgetHeight - 1, Color.BLACK.getRGB());
-            context.fill(x + widgetHeight - 10, y + 2, x + widgetWidth - 2, y + widgetHeight - 2, nullColor);
-            context.fill(x + widgetHeight - 10, y + 2, x + widgetWidth - 2, y + widgetHeight - 2, setting.getRGB());
+            int vx = x + widgetWidth - widgetHeight;
+            int vy = y + 1;
+            
+            context.drawBorder(vx, vy, widgetHeight - 2, widgetHeight - 2, Color.BLACK.getRGB());
+            context.fill(vx + 1, vy + 1, vx + widgetHeight - 3, vy + widgetHeight - 3, nullColor);
+            context.fill(vx + 1, vy + 1, vx + widgetHeight - 3, vy + widgetHeight - 3, setting.getRGB());
         }
         
         /*

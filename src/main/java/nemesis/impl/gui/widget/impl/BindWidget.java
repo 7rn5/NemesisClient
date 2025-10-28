@@ -16,6 +16,11 @@ public class BindWidget implements Widget<BindSetting> {
     private boolean listening = false;
     private int x, y;
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -25,7 +30,9 @@ public class BindWidget implements Widget<BindSetting> {
     public void render(DrawContext context, TextRenderer textRenderer, BindSetting setting, int x, int y, int mouseX, int mouseY) {
         //back ground
         int bgColor = listening ? new Color(50, 50, 150, 150).getRGB() : new Color(50, 50, 50, 150).getRGB();
-        context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
+        if (fill()) {
+            context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
+        }
         
         //draw text
         String keyName = setting.getKeyName();

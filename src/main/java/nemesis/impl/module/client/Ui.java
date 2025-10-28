@@ -13,7 +13,7 @@ import org.lwjgl.glfw.GLFW;
 import java.awt.Color;
 
 public class Ui extends Module {
-    public final BoolSetting fille = addSetting(new BoolSetting.Builder()
+    public final BoolSetting fill = addSetting(new BoolSetting.Builder()
         .name("ModuleFill")
         .defaultValue(true)
         .build()

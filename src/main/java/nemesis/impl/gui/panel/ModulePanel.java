@@ -36,6 +36,11 @@ public class ModulePanel {
         }
     }
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -52,10 +57,12 @@ public class ModulePanel {
         int hoveredColor = toRGBA(new Color(255, 255, 255, 120));
         int white = toRGBA(new Color(255, 255, 255, 255));
         
-        if (module.isEnabled()) {
-            context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, enabledColor);
-        } else {
-            context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, disabledColor);
+        if (fill()) {
+            if (module.isEnabled()) {
+                context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, enabledColor);
+            } else {
+                context.fill(x - 2, y - 1, x + Widget.WIDTH - 6, y + Widget.HEIGHT - 1, disabledColor);
+            }
         }
         
         if (bounce()) {

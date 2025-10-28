@@ -13,6 +13,11 @@ import static nemesis.NemesisClient.moduleManager;
 public class BoolWidget implements Widget<BoolSetting> {
     private int x, y;
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
@@ -22,7 +27,10 @@ public class BoolWidget implements Widget<BoolSetting> {
     public void render(DrawContext context, TextRenderer textRenderer, BoolSetting setting, int x, int y, int mouseX, int mouseY) {
         //back ground
         int bgColor = setting.get() ? new Color(0, 200, 0, 150).getRGB() : new Color(200, 0, 0, 150).getRGB();
-        context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
+        
+        if (fill()) {
+            context.fill(x, y, x + widgetWidth, y + widgetHeight, bgColor);
+        }
         
         //bool name
         context.getMatrices().push();

@@ -14,6 +14,11 @@ import static nemesis.NemesisClient.moduleManager;
 public class EnumWidget<T extends Enum<T>> implements Widget<EnumSetting<T>> {
     private boolean expanded = false;
     
+    private boolean fill() {
+        Ui uiModule = moduleManager.get(Ui.class);
+        return uiModule.fill.get();
+    }
+    
     private boolean textShadow() {
         Ui uiModule = moduleManager.get(Ui.class);
         return uiModule.textShadow.get();
