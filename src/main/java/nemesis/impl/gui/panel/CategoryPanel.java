@@ -43,19 +43,24 @@ public class CategoryPanel {
         return totalHeight;
     }
     
+    private Ui getUiModule() {
+        return moduleManager.get(Ui.class);
+    }
+    
+    private int getColor() {
+        return getUiModule().color.getRGB();
+    }
+    
     private boolean fill() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.fill.get();
+        return getUiModule().fill.get();
     }
     
     private boolean textShadow() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.textShadow.get();
+        return getUiModule().textShadow.get();
     }
     
     private boolean bounce() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.bounce.get();
+        return getUiModule().bounce.get();
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
@@ -97,7 +102,7 @@ public class CategoryPanel {
                     expandedOffsetY += Widget.HEIGHT + 1;
                 }
             }
-            context.drawBorder(x - 4, y + 10, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
+            context.drawBorder(x - 4, y + 10, Widget.WIDTH, 4 + calculateTotalHeight(), Color.WHITE.getRGB());
         }
     }
     

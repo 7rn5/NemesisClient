@@ -36,19 +36,24 @@ public class ModulePanel {
         }
     }
     
+    private Ui getUiModule() {
+        return moduleManager.get(Ui.class);
+    }
+    
+    private int getColor() {
+        return getUiModule().color.getRGB();
+    }
+    
     private boolean fill() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.fill.get();
+        return getUiModule().fill.get();
     }
     
     private boolean textShadow() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.textShadow.get();
+        return getUiModule().textShadow.get();
     }
     
     private boolean bounce() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.bounce.get();
+        return getUiModule().bounce.get();
     }
     
     public void render(DrawContext context, TextRenderer textRenderer, int mouseX, int mouseY) {
@@ -92,9 +97,9 @@ public class ModulePanel {
                 offsetY += Widget.HEIGHT + widgetPadding;
             }
             if (module.isEnabled()) {
-                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT + 1, enabledColor);
+                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT + 2, enabledColor);
             } else {
-                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT + 1, disabledColor);
+                context.drawBorder(x - 2, y + 9, Widget.WIDTH - 4, getExpandedHeight() - Widget.HEIGHT + 2, disabledColor);
             }
         }
     }

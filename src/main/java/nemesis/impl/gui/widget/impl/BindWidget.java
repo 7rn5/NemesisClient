@@ -16,14 +16,24 @@ public class BindWidget implements Widget<BindSetting> {
     private boolean listening = false;
     private int x, y;
     
+    private Ui getUiModule() {
+        return moduleManager.get(Ui.class);
+    }
+    
+    private int getColor() {
+        return getUiModule().color.getRGB();
+    }
+    
     private boolean fill() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.fill.get();
+        return getUiModule().fill.get();
     }
     
     private boolean textShadow() {
-        Ui uiModule = moduleManager.get(Ui.class);
-        return uiModule.textShadow.get();
+        return getUiModule().textShadow.get();
+    }
+    
+    private boolean bounce() {
+        return getUiModule().bounce.get();
     }
     
     @Override
