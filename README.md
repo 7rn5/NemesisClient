@@ -5,40 +5,36 @@ Minecraft utility mod for 2b2t
 ・minecraft version       `1.21.4`  
 ・java version            `21`  
 ・Supported Anti-Cheats   `Vanilla, Grim, NCP` `Grim and NCP will be supported in the future`  
-・open click gui          `Right Shift`  
+・open click gui          `Right Shift`
 
 ## Features
+**Client [5]**  
+- AntiCheat  
+- ColorManagement  
+- Hud  
+- Notification  
+- Ui  
+
 **Combat [1]**  
 - Offhand  
 
+**Exploit [1]**  
+- Multitask  
 
 **Misc [2]**  
 - Announcer  
-- SplashText
-
-
-**Visual [1]**  
-- NoRender  
-
+- SplashText  
 
 **Movement [4]**  
 - NoJumpDelay  
 - NoSlow  
 - Sprint  
 - Velocity  
-  
 
 **Player [1]**  
 - SpeedMine  
-  
 
-**Exploit [1]**  
-- Multitask  
-  
+**Visual [1]**  
+- NoRender  
 
-**Client [4]**  
-- AntiCheat  
-- Color Management  
-- Notification  
-- UI  
-
+**Total Modules:** `15`

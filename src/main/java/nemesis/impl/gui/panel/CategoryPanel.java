@@ -97,12 +97,12 @@ public class CategoryPanel {
                 panel.render(context, textRenderer, mouseX, mouseY);
                 
                 if (panel.isExpanded()) {
-                    expandedOffsetY += panel.getExpandedHeight();
+                    expandedOffsetY += (panel.getExpandedHeight() + 2);
                 } else {
                     expandedOffsetY += Widget.HEIGHT + 1;
                 }
             }
-            context.drawBorder(x - 4, y + 10, Widget.WIDTH, 4 + calculateTotalHeight(), Color.WHITE.getRGB());
+            context.drawBorder(x - 4, y + 10, Widget.WIDTH, 3 + calculateTotalHeight(), Color.WHITE.getRGB());
         }
     }
     

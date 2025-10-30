@@ -68,6 +68,10 @@ public class ColorWidget implements Widget<ColorSetting> {
             context.drawBorder(vx, vy, widgetHeight - 2, widgetHeight - 2, Color.BLACK.getRGB());
             context.fill(vx + 1, vy + 1, vx + widgetHeight - 3, vy + widgetHeight - 3, nullColor);
             context.fill(vx + 1, vy + 1, vx + widgetHeight - 3, vy + widgetHeight - 3, setting.getRGB());
+        } else {
+            if (fill()) {
+                context.fill(x, y, x + widgetWidth, y + widgetWidth, Color.WHITE.getRGB());
+            }
         }
         
         /*

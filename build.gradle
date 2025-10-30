@@ -81,6 +81,11 @@ publishing {
 	  }
 }
 
+task updateReadme(type: Exec) {
+    def script = "${projectDir}/readme_manager.py"
+    commandLine 'python', script
+}
+
 tasks.register("GitCommit") {
     group = "automation"
     description = "Runs build, and if successful, commits and pushes to Git."
@@ -117,3 +122,5 @@ tasks.register("GitCommit") {
         println "✅  Git push  complete!"
     }
 }
+
+build.dependsOn(updateReadme)
