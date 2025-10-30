@@ -68,3 +68,9 @@ Minecraft utility mod for 2b2t
 
 **Total Modules:** `15`  
 _Last updated: 2025-10-30 22:45_
+
+
+## History  
+This client was initially developed as a gift for a Japanese friend.
+Its early versions didn't anticipate growing to this scale, so it may still have occasional bugs.
+While there are currently no plans to discontinue development, please be aware that it may eventually be discontinued. (I'd love to keep it going as long as possible :D)
