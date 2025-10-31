@@ -1,5 +1,5 @@
 # Nemesis Client
-<img width="528" height="528" alt="Icon" src="src/main/resources/assets/nemesis/icon.png" />
+<img aligo="center" width="128" height="128" alt="Icon" src="src/main/resources/assets/nemesis/icon.png" />
 Minecraft utility mod for 2b2t
 
 <div align="center">
