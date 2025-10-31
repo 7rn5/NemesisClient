@@ -90,6 +90,8 @@ tasks.register("GitCommit") {
     group = "automation"
     description = "Runs build, and if successful, commits and pushes to Git."
     
+    dependsOn(updateReadme)
+    
     doLast {
         println("✅ Build finished, checking for changes...")
         
