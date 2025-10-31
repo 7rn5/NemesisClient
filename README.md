@@ -1,5 +1,7 @@
 # Nemesis Client
+<img width="1024" height="1024" alt="Icon" src="src/resources/assets/nemesis/icon.png" />
 Minecraft utility mod for 2b2t
+
 <div align="center">
 
 ![Last Commit](https://img.shields.io/github/last-commit/7rn5/NemesisClient?logo=github&label=Last%20commit)
