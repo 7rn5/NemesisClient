@@ -49,7 +49,7 @@ public class BindWidget implements Widget<BindSetting> {
         String label = setting.getName() + ": " + (listening ? "Press a key..." : keyName);
         context.getMatrices().push();
         context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-        context.drawText(textRenderer, label, (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
+        context.drawText(textRenderer, label, (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight - 2) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
         context.getMatrices().pop();
         
         this.x = x;

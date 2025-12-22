@@ -45,7 +45,7 @@ public class BoolWidget implements Widget<BoolSetting> {
         //bool name
         context.getMatrices().push();
         context.getMatrices().scale(0.8f, 0.8f, 1.0f);
-        context.drawText(textRenderer, setting.getName(), (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
+        context.drawText(textRenderer, setting.getName(), (int) ((x + PADDING) / 0.8f), (int) ((y + (widgetHeight - textRenderer.fontHeight - 2) / 2) / 0.8f), Color.WHITE.getRGB(), textShadow());
         context.getMatrices().pop();
         
         this.x = x;
