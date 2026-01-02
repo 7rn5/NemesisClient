@@ -90,3 +90,7 @@ Most people playing this game were idiots and fools (myself included).
 I don't want to keep playing this game forever, so I don't care about this code anymore.  
 If anyone wants to use it, feel free to download and modify it as you please. I try not to skid as much as possible, but I think people arguing over such things are truly foolish.  
 This code will probably be gone within three days of being posted.  
+
+## Dev
+@urnigger (discord)  
+@7rn5 (discord)
