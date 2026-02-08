@@ -76,7 +76,7 @@ This client was initially developed as a gift for a Japanese friend.
 Its early versions didn't anticipate growing to this scale, so it may still have occasional bugs.
 While there are currently no plans to discontinue development, please be aware that it may eventually be discontinued. (I'd love to keep it going as long as possible :D)
 
-## このソースコードの後悔について  JP
+## このソースコードの公開について  JP
 このコードを公開したのはただこのゲームに楽しさを感じなくなったからです。 
 このゲームをしている人はほとんどのひとがバカで愚かだった(自分も含めて)  
 こんなゲームをいつまでも続けることはしたくないからこのコードも今はどうでもいい  
@@ -84,7 +84,7 @@ While there are currently no plans to discontinue development, please be aware t
 多分このコードは公開から3日以内に消えてると思う。  
 
 
-## On My Regrets About This Source Code  EN
+## Regarding the release of this source code  EN
 I released this code simply because I no longer found this game enjoyable.  
 Most people playing this game were idiots and fools (myself included).  
 I don't want to keep playing this game forever, so I don't care about this code anymore.  
